@@ -1,19 +1,71 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charset="utf-8">
-        <title> RAJAT KUMAR </title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <h1>Hey there, I am a Tech enthusiast !</h1>
-        <h2>Keep Coding!</h2>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajat's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Rajat</h1>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h2>Hi, I'm Rajat</h2>
+        <p>A passionate coder and AI & DS enthusiast</p>
+        <button onclick="scrollToSection('contact')">Get in Touch</button>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I am a skilled programmer pursuing B.Tech in AI & Data Science at KJ Somaiya College of Engineering, Mumbai. I thrive on solving challenges and building innovative solutions.</p>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
         <ul>
             <li>Python</li>
-            <li>C</li>
-            <li>SQL</li>
-            <li>Excel</li>
+            <li>Machine Learning</li>
+            <li>Data Visualization</li>
+            <li>Deep Learning</li>
+            <li>Web Development</li>
         </ul>
-    </body>
+    </section>
+
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="project">
+            <h3>Project 1</h3>
+            <p>A machine learning-based project that predicts future trends.</p>
+        </div>
+        <div class="project">
+            <h3>Project 2</h3>
+            <p>A web app to visualize data interactively.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form>
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 Rajat | All rights reserved</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
 </html>
