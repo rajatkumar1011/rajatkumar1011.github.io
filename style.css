@@ -1,162 +1,121 @@
-/* Global Styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f3f4f6;
-    color: #333;
-    line-height: 1.6;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-h1, h2, h3 {
-    color: #2d3748;
+body.dark-mode {
+  background-color: #333;
+  color: #f4f4f4;
 }
 
-/* Header Navigation */
 header {
-    background-color: #1a202c;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  background: #333;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+nav .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
-}
-
-nav ul li {
-    margin: 0 15px;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
 }
 
 nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-nav ul li a:hover {
-    color: #63b3ed;
+#theme-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
-/* Hero Section */
-#hero {
-    background: linear-gradient(135deg, #4a90e2, #9013fe);
-    color: white;
-    text-align: center;
-    padding: 100px 20px;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+.hero {
+  text-align: center;
+  padding: 5rem 1rem;
+  background: #0073e6;
+  color: #fff;
 }
 
-#hero button {
-    background: #fff;
-    color: #4a90e2;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 1.2em;
-    margin-top: 20px;
-    border-radius: 30px;
-    transition: background 0.3s;
+.hero .btn {
+  background: #fff;
+  color: #0073e6;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
-#hero button:hover {
-    background: #63b3ed;
+.about, .projects, .contact {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* Section Styling */
-section {
-    padding: 80px 20px;
-    max-width: 1200px;
-    margin: auto;
+.projects .project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
 }
 
-#about, #skills, #projects, #contact {
-    background: white;
-    margin: 30px 0;
-    padding: 50px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.project-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Skills Section */
-ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+body.dark-mode .project-card {
+  background: #444;
+  color: #f4f4f4;
 }
 
-ul li {
-    margin: 10px;
-    background: #4a90e2;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    font-weight: bold;
-    text-align: center;
+.contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* Projects Section */
-.project {
-    background: #f7fafc;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
+.contact input, .contact textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.project h3 {
-    color: #4a90e2;
+.contact button {
+  background: #0073e6;
+  color: #fff;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* Contact Section */
-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-    max-width: 600px;
-    margin: auto;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1em;
-}
-
-button[type="submit"] {
-    background: #4a90e2;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background 0.3s;
-}
-
-button[type="submit"]:hover {
-    background: #63b3ed;
-}
-
-/* Footer */
 footer {
-    text-align: center;
-    padding: 20px;
-    background: #1a202c;
-    color: white;
-    font-size: 0.9em;
+  text-align: center;
+  padding: 1rem;
+  background: #333;
+  color: #fff;
 }
