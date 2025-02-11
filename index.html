@@ -3,52 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <title>John Doe | Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+  <!-- Header -->
   <header>
     <nav>
-      <div class="logo">MyPortfolio</div>
+      <div class="logo">JD</div>
       <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#work">Work</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button id="theme-toggle">🌙</button>
     </nav>
   </header>
 
-  <section id="home" class="hero">
-    <h1>Welcome to My Portfolio</h1>
-    <p>I'm a passionate developer who loves building cool stuff!</p>
-    <a href="#projects" class="btn">View My Work</a>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>John Doe</h1>
+      <p>Full-Stack Developer | Designer | Innovator</p>
+      <a href="#work" class="btn">View My Work</a>
+    </div>
   </section>
 
+  <!-- About Section -->
   <section id="about" class="about">
-    <h2>About Me</h2>
-    <p>Hi, I'm John Doe, a full-stack developer with expertise in JavaScript, React, and Node.js. I enjoy solving problems and creating user-friendly applications.</p>
+    <div class="about-content">
+      <h2>About Me</h2>
+      <p>I'm a full-stack developer with a passion for creating elegant, user-friendly applications. With expertise in JavaScript, React, and Node.js, I bring ideas to life through clean code and thoughtful design.</p>
+    </div>
   </section>
 
-  <section id="projects" class="projects">
-    <h2>My Projects</h2>
-    <div class="project-grid">
-      <div class="project-card">
+  <!-- Work Section -->
+  <section id="work" class="work">
+    <h2>My Work</h2>
+    <div class="work-grid">
+      <div class="work-card">
+        <img src="https://via.placeholder.com/400x300" alt="Project 1">
         <h3>Project 1</h3>
         <p>A responsive e-commerce website built with React.</p>
       </div>
-      <div class="project-card">
+      <div class="work-card">
+        <img src="https://via.placeholder.com/400x300" alt="Project 2">
         <h3>Project 2</h3>
         <p>A REST API for a task management app using Node.js.</p>
       </div>
-      <div class="project-card">
+      <div class="work-card">
+        <img src="https://via.placeholder.com/400x300" alt="Project 3">
         <h3>Project 3</h3>
-        <p>A portfolio website (yes, this one!) built with HTML, CSS, and JavaScript.</p>
+        <p>A minimalist portfolio website (yes, this one!).</p>
       </div>
     </div>
   </section>
 
+  <!-- Contact Section -->
   <section id="contact" class="contact">
     <h2>Contact Me</h2>
     <form id="contact-form">
@@ -59,8 +70,14 @@
     </form>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2023 MyPortfolio. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p>&copy; 2023 John Doe. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
