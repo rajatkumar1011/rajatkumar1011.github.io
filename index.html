@@ -1,71 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rajat's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <h1>Rajat</h1>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <div class="logo">MyPortfolio</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button id="theme-toggle">🌙</button>
+    </nav>
+  </header>
 
-    <section id="hero">
-        <h2>Hi, I'm Rajat</h2>
-        <p>A passionate coder and AI & DS enthusiast</p>
-        <button onclick="scrollToSection('contact')">Get in Touch</button>
-    </section>
+  <section id="home" class="hero">
+    <h1>Welcome to My Portfolio</h1>
+    <p>I'm a passionate developer who loves building cool stuff!</p>
+    <a href="#projects" class="btn">View My Work</a>
+  </section>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I am a skilled programmer pursuing B.Tech in AI & Data Science at KJ Somaiya College of Engineering, Mumbai. I thrive on solving challenges and building innovative solutions.</p>
-    </section>
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>Hi, I'm John Doe, a full-stack developer with expertise in JavaScript, React, and Node.js. I enjoy solving problems and creating user-friendly applications.</p>
+  </section>
 
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>Python</li>
-            <li>Machine Learning</li>
-            <li>Data Visualization</li>
-            <li>Deep Learning</li>
-            <li>Web Development</li>
-        </ul>
-    </section>
+  <section id="projects" class="projects">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Project 1</h3>
+        <p>A responsive e-commerce website built with React.</p>
+      </div>
+      <div class="project-card">
+        <h3>Project 2</h3>
+        <p>A REST API for a task management app using Node.js.</p>
+      </div>
+      <div class="project-card">
+        <h3>Project 3</h3>
+        <p>A portfolio website (yes, this one!) built with HTML, CSS, and JavaScript.</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="projects">
-        <h2>Featured Projects</h2>
-        <div class="project">
-            <h3>Project 1</h3>
-            <p>A machine learning-based project that predicts future trends.</p>
-        </div>
-        <div class="project">
-            <h3>Project 2</h3>
-            <p>A web app to visualize data interactively.</p>
-        </div>
-    </section>
+  <section id="contact" class="contact">
+    <h2>Contact Me</h2>
+    <form id="contact-form">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
 
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <form>
-            <input type="text" id="name" placeholder="Your Name" required>
-            <input type="email" id="email" placeholder="Your Email" required>
-            <textarea id="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </section>
+  <footer>
+    <p>&copy; 2023 MyPortfolio. All rights reserved.</p>
+  </footer>
 
-    <footer>
-        <p>© 2025 Rajat | All rights reserved</p>
-    </footer>
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
