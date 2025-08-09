@@ -1,398 +1,296 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8">
-    <title>RAJAT KUMAR</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Light gray background */
+        }
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav id="navbar">
-            <div class="logo">
-                <span>Portfolio</span>
+<body class="text-gray-800">
+
+    <!-- Header & Navbar -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-900">Portfolio</a>
+            <div class="hidden md:flex space-x-8 items-center text-gray-600">
+                <a href="#about" class="hover:text-blue-600 transition-colors">About</a>
+                <a href="#projects" class="hover:text-blue-600 transition-colors">Projects</a>
+                <a href="#contact" class="hover:text-blue-600 transition-colors">Contact</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
+            <a id="profile-link-nav" href="https://github.com/rajatkumar1011/" target="_blank" rel="noopener noreferrer" class="hidden md:block bg-gray-900 hover:bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
+                View GitHub
+            </a>
+            <button id="mobile-menu-button" class="md:hidden text-gray-800">
+                <i data-lucide="menu"></i>
+            </button>
         </nav>
     </header>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-white z-40 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="close-mobile-menu-button" class="text-gray-800">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center space-y-8 h-full text-2xl text-gray-800">
+            <a href="#about" class="mobile-menu-link hover:text-blue-600 transition-colors">About</a>
+            <a href="#projects" class="mobile-menu-link hover:text-blue-600 transition-colors">Projects</a>
+            <a href="#contact" class="mobile-menu-link hover:text-blue-600 transition-colors">Contact</a>
+            <a id="profile-link-mobile" href="https://github.com/rajatkumar1011/" target="_blank" rel="noopener noreferrer" class="bg-gray-900 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors mt-4">
+                View GitHub
+            </a>
+        </div>
+    </div>
 
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h1 class="glitch" data-text="RAJAT KUMAR">RAJAT KUMAR</h1>
-                <div class="typing-container">
-                    <p>I'm a <span class="typing"></span></p>
-                </div>
-                <div class="cta-buttons">
-                    <a href="#projects" class="btn primary-btn">View My Work</a>
-                    <a href="#contact" class="btn secondary-btn">Connect With Me</a>
-                </div>
-                <div class="social-icons">
-                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fa fa-envelope"></i></a>
-                </div>
-            </div>
-            <div class="scroll-down">
-                <p>Scroll Down</p>
-                <i class="fas fa-chevron-down"></i>
-            </div>
+
+    <main class="container mx-auto px-6 pt-32 md:pt-40">
+
+        <!-- Hero Section -->
+        <section id="hero" class="text-center py-20">
+            <img id="user-avatar" src="https://placehold.co/128x128/e5e7eb/4b5563?text=Avatar" alt="User Avatar" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-lg">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
+                Hi, I'm <span id="user-name" class="text-blue-600"></span>
+            </h1>
+            <p id="user-bio" class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8"></p>
+            <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">
+                Explore My Work
+            </a>
         </section>
 
-        <section id="about" class="about">
-            <div class="section-header">
-                <h2>About Me</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="image-wrapper">
-                        <div class="image-placeholder">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <h3>Hello, I'm Rajat Kumar</h3>
-                    <p>I'm a passionate tech enthusiast with a strong interest in software development and data analysis. My journey in technology began when I wrote my first line of code, and I've been hooked ever since.</p>
-                    <p>I believe in continuous learning and pushing the boundaries of what's possible with technology. Whether it's developing efficient algorithms, creating intuitive user interfaces, or analyzing complex datasets, I'm always up for the challenge.</p>
-                    <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or mentoring aspiring developers.</p>
-                    <div class="about-details">
-                        <div class="detail">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>BTech Artificial Intelligence and Data Science</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fas fa-briefcase"></i>
-                            <span>Learner for Life</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Location: Mumbai, India</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fas fa-language"></i>
-                            <span>English, Hindi</span>
-                        </div>
-                    </div>
-                    <a href="#" class="btn resume-btn">Download Resume <i class="fas fa-download"></i></a>
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">About Me</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-12"></div>
+                <div class="max-w-3xl mx-auto text-center">
+                    <p class="text-gray-700 leading-relaxed" id="user-about">
+                        <!-- Bio content will be loaded here -->
+                    </p>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="skills">
-            <div class="section-header">
-                <h2>My Skills</h2>
-                <div class="underline"></div>
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">My Projects</h2>
+             <div class="w-20 h-1 bg-blue-600 mx-auto mb-12"></div>
+            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projects will be dynamically inserted here -->
+                <div id="loader" class="col-span-full flex justify-center items-center h-40">
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
+                </div>
             </div>
-            <div class="skills-content">
-                <div class="skills-category">
-                    <h3>Programming Languages</h3>
-                    <div class="skills-grid">
-                        <div class="skill-card">
-                            <div class="skill-icon python">
-                                <i class="fab fa-python"></i>
-                            </div>
-                            <h4>Python</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon c">
-                                <span>C</span>
-                            </div>
-                            <h4>C</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon javascript">
-                                <i class="fab fa-js"></i>
-                            </div>
-                            <h4>JavaScript</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon html">
-                                <i class="fab fa-html5"></i>
-                            </div>
-                            <h4>HTML</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon css">
-                                <i class="fab fa-css3-alt"></i>
-                            </div>
-                            <h4>CSS</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skills-category">
-                    <h3>Tools & Technologies</h3>
-                    <div class="skills-grid">
-                        <div class="skill-card">
-                            <div class="skill-icon sql">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <h4>SQL</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon excel">
-                                <i class="fas fa-table"></i>
-                            </div>
-                            <h4>Excel</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon git">
-                                <i class="fab fa-git-alt"></i>
-                            </div>
-                            <h4>Git</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon data">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                            <h4>Data Analysis</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon web">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h4>Web Development</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div id="error-message" class="hidden col-span-full text-center text-red-500 p-8 bg-red-50 rounded-lg"></div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-white text-center">
+             <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">Get In Touch</h2>
+                 <div class="w-20 h-1 bg-blue-600 mx-auto mb-8"></div>
+                <p class="max-w-2xl mx-auto text-gray-700 mb-8">
+                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out to me.
+                </p>
+                <a id="user-email-link" href="#" class="inline-block bg-gray-900 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
+                    Say Hello
+                </a>
             </div>
         </section>
 
-        <section id="projects" class="projects">
-            <div class="section-header">
-                <h2>My Projects</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="python">Python</button>
-                <button class="filter-btn" data-filter="data">Data</button>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card" data-category="web">
-                    <div class="project-img">
-                        <div class="img-placeholder">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Personal Portfolio</h3>
-                        <p>A responsive portfolio website built with HTML, CSS, and JavaScript.</p>
-                        <div class="project-tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn small-btn"><i class="fas fa-eye"></i> Demo</a>
-                            <a href="#" class="btn small-btn"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="python">
-                    <div class="project-img">
-                        <div class="img-placeholder">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Sentiment Analysis Tool</h3>
-                        <p>A Python application that analyzes sentiment in text using machine learning.</p>
-                        <div class="project-tags">
-                            <span>Python</span>
-                            <span>NLP</span>
-                            <span>ML</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn small-btn"><i class="fas fa-eye"></i> Demo</a>
-                            <a href="#" class="btn small-btn"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="data">
-                    <div class="project-img">
-                        <div class="img-placeholder">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Data Visualization Dashboard</h3>
-                        <p>An interactive dashboard for visualizing complex datasets.</p>
-                        <div class="project-tags">
-                            <span>Python</span>
-                            <span>SQL</span>
-                            <span>Excel</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn small-btn"><i class="fas fa-eye"></i> Demo</a>
-                            <a href="#" class="btn small-btn"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="python">
-                    <div class="project-img">
-                        <div class="img-placeholder">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Task Management App</h3>
-                        <p>A Python-based application for managing tasks and increasing productivity.</p>
-                        <div class="project-tags">
-                            <span>Python</span>
-                            <span>SQLite</span>
-                            <span>GUI</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn small-btn"><i class="fas fa-eye"></i> Demo</a>
-                            <a href="#" class="btn small-btn"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact">
-            <div class="section-header">
-                <h2>Get In Touch</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-detail">
-                        <i class="fas fa-envelope"></i>
-                        <div class="detail-content">
-                            <h3>Email</h3>
-                            <p>rajatkumar7x@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-phone"></i>
-                        <div class="detail-content">
-                            <h3>Phone</h3>
-                            <p>+91 9930451073</p>
-                        </div>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div class="detail-content">
-                            <h3>Location</h3>
-                            <p>Mumbai, India</p>
-                        </div>
-                    </div>
-                    <div class="contact-social">
-                        <h3>Find Me On</h3>
-                        <div class="social-links">
-                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
-                            <label for="name">Your Name</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
-                            <label for="email">Your Email</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                            <label for="subject">Subject</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                            <label for="message">Your Message</label>
-                        </div>
-                        <button type="submit" class="btn submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <span>RAJAT KUMAR</span>
-                <p>Tech Enthusiast & Developer</p>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+            <div class="flex justify-center space-x-6 mb-4">
+                 <a href="https://www.linkedin.com/in/rajatkumar7/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600 transition-colors">
+                    <i data-lucide="linkedin" class="w-6 h-6"></i>
+                </a>
+                <a href="https://github.com/rajatkumar1011/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600 transition-colors">
+                    <i data-lucide="github" class="w-6 h-6"></i>
+                </a>
             </div>
-            <div class="footer-links">
-                <div class="footer-nav">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-social">
-                    <h3>Connect</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fa fa-envelope"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2025 Rajat Kumar. All Rights Reserved.</p>
-            <p>Designed with <i class="fas fa-heart"></i> by Rajat Kumar</p>
+            <p>&copy; <span id="current-year"></span> <span id="footer-user-name"></span>. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // --- CONFIGURATION ---
+        const GITHUB_USERNAME = "rajatkumar1011";
+
+        // --- ELEMENTS ---
+        const userNameEl = document.getElementById('user-name');
+        const footerUserNameEl = document.getElementById('footer-user-name');
+        const userBioEl = document.getElementById('user-bio');
+        const userAboutEl = document.getElementById('user-about');
+        const userAvatarEl = document.getElementById('user-avatar');
+        const profileLinkNavEl = document.getElementById('profile-link-nav');
+        const profileLinkMobileEl = document.getElementById('profile-link-mobile');
+        const userEmailLinkEl = document.getElementById('user-email-link');
+        const projectsContainer = document.getElementById('projects-container');
+        const loader = document.getElementById('loader');
+        const errorMessageEl = document.getElementById('error-message');
+        const currentYearEl = document.getElementById('current-year');
+        const header = document.getElementById('header');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenuButton = document.getElementById('close-mobile-menu-button');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        // --- GITHUB API & DATA FETCHING ---
+
+        async function fetchGitHubUser(username) {
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}`);
+                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                return await response.json();
+            } catch (error) {
+                console.error("Failed to fetch GitHub user data:", error);
+                displayError(`Could not fetch user '${username}'.`);
+                return null;
+            }
+        }
+
+        async function fetchGitHubRepos(username) {
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`);
+                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                return await response.json();
+            } catch (error) {
+                console.error("Failed to fetch GitHub repos:", error);
+                displayError(`Could not fetch repositories for '${username}'.`);
+                return null;
+            }
+        }
+
+        // --- UI RENDERING & EVENT HANDLERS ---
+
+        function populateUserInfo(userData) {
+            if (!userData) return;
+            const name = userData.name || userData.login;
+            userNameEl.textContent = name;
+            footerUserNameEl.textContent = name;
+            const bioText = userData.bio || 'A passionate developer creating amazing things.';
+            userBioEl.textContent = bioText;
+            userAboutEl.textContent = bioText;
+            userAvatarEl.src = userData.avatar_url;
+            userAvatarEl.alt = `${name}'s Avatar`;
+            profileLinkNavEl.href = userData.html_url;
+            profileLinkMobileEl.href = userData.html_url;
+            if (userData.email) {
+                userEmailLinkEl.href = `mailto:${userData.email}`;
+            } else {
+                userEmailLinkEl.href = userData.html_url;
+                userEmailLinkEl.textContent = "Contact on GitHub";
+            }
+        }
+
+        function createProjectCards(repos) {
+            loader.style.display = 'none';
+            projectsContainer.innerHTML = '';
+            if (!repos || repos.length === 0) {
+                projectsContainer.innerHTML = `<p class="col-span-full text-center text-gray-500">No public repositories found.</p>`;
+                return;
+            }
+
+            repos.forEach(repo => {
+                const card = document.createElement('div');
+                card.className = 'project-card bg-white p-6 rounded-lg border border-gray-200 flex flex-col';
+                const language = repo.language ? `<span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">${repo.language}</span>` : '';
+                
+                card.innerHTML = `
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-lg font-bold text-gray-900">${repo.name}</h3>
+                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600">
+                                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 min-h-[40px]">
+                            ${repo.description || 'No description available.'}
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-gray-500">
+                        <div class="flex space-x-4">
+                            <div class="flex items-center space-x-1"><i data-lucide="star" class="w-4 h-4 text-yellow-500"></i><span>${repo.stargazers_count}</span></div>
+                            <div class="flex items-center space-x-1"><i data-lucide="git-fork" class="w-4 h-4 text-gray-400"></i><span>${repo.forks_count}</span></div>
+                        </div>
+                        ${language}
+                    </div>
+                `;
+                projectsContainer.appendChild(card);
+            });
+            
+            lucide.createIcons();
+        }
+
+        function displayError(message) {
+            loader.style.display = 'none';
+            errorMessageEl.textContent = `Error: ${message}`;
+            errorMessageEl.classList.remove('hidden');
+        }
+
+        function handleScroll() {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        }
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // --- INITIALIZATION ---
+
+        async function init() {
+            // Page setup
+            currentYearEl.textContent = new Date().getFullYear();
+            window.addEventListener('scroll', handleScroll);
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            closeMobileMenuButton.addEventListener('click', toggleMobileMenu);
+            mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+
+            // Fetch data
+            const userData = await fetchGitHubUser(GITHUB_USERNAME);
+            if (userData) {
+                populateUserInfo(userData);
+                const repos = await fetchGitHubRepos(GITHUB_USERNAME);
+                if (repos) {
+                    createProjectCards(repos);
+                }
+            }
+            
+            lucide.createIcons();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
 </body>
 </html>
