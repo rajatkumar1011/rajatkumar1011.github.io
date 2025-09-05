@@ -92,6 +92,8 @@
 
         #user-bio {
             min-height: 1.75rem; /* Prevents layout shift for text-lg/text-xl */
+            overflow-wrap: break-word; /* Fixes text wrapping issue during animation */
+            word-wrap: break-word; /* Legacy fallback */
         }
         .typing-cursor::after {
             content: '|';
@@ -106,13 +108,34 @@
             50% { opacity: 0; }
         }
 
-        #explore-work-btn {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        .sleek-btn {
             border: 2px solid var(--accent-primary);
             color: var(--accent-primary);
             background-color: transparent;
+            font-weight: 600; /* semibold */
+            border-radius: 9999px; /* rounded-full */
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sleek-btn:hover {
+            transform: scale(1.05);
+            color: var(--bg-primary);
+            background-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-primary);
+        }
+        
+        [data-theme='glow'] .sleek-btn {
+             box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        [data-theme='glow'] .sleek-btn:hover {
+            box-shadow: 0 0 25px var(--glow-color), 0 0 40px var(--glow-color) inset;
+        }
+        
+        #explore-work-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
 
         #explore-work-btn.visible {
@@ -120,18 +143,15 @@
             transform: translateY(0);
         }
 
-        #explore-work-btn:hover {
-            color: var(--bg-primary);
-            background-color: var(--accent-primary);
-            box-shadow: 0 0 20px var(--accent-primary);
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s 0.3s ease-out, transform 0.5s 0.3s ease-out;
         }
 
-        [data-theme='glow'] #explore-work-btn {
-             box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        [data-theme='glow'] #explore-work-btn:hover {
-            box-shadow: 0 0 25px var(--glow-color), 0 0 40px var(--glow-color) inset;
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -150,7 +170,7 @@
                     <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="dark" aria-label="Dark theme"><i data-lucide="moon"></i></button>
                     <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="glow" aria-label="Glow theme"><i data-lucide="sparkles"></i></button>
                 </div>
-                <a id="profile-link-nav" href="#" target="_blank" rel="noopener noreferrer" class="bg-[var(--text-primary)] hover:opacity-80 text-[var(--bg-primary)] font-semibold px-4 py-2 rounded-lg transition-colors">
+                <a id="profile-link-nav" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn px-4 py-2">
                     View GitHub
                 </a>
             </div>
@@ -176,7 +196,7 @@
                 <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="dark" aria-label="Dark theme"><i data-lucide="moon"></i></button>
                 <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="glow" aria-label="Glow theme"><i data-lucide="sparkles"></i></button>
             </div>
-            <a id="profile-link-mobile" href="#" target="_blank" rel="noopener noreferrer" class="bg-[var(--text-primary)] hover:opacity-80 text-[var(--bg-primary)] font-semibold px-6 py-3 rounded-lg transition-colors mt-4">
+            <a id="profile-link-mobile" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn px-6 py-3 mt-4">
                 View GitHub
             </a>
         </div>
@@ -191,13 +211,13 @@
                 Hi, I'm <span id="user-name" class="text-[var(--accent-primary)] glow-text"></span>
             </h1>
             <p id="user-bio" class="text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8"></p>
-            <a id="explore-work-btn" href="#projects" class="inline-block font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">
+            <a id="explore-work-btn" href="#projects" class="sleek-btn py-3 px-8">
                 Explore My Work
             </a>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-24">
+        <section id="projects" class="py-24 fade-in-section">
             <h2 class="text-3xl font-bold text-center mb-4">My Projects</h2>
              <div class="w-20 h-1 bg-[var(--accent-primary)] mx-auto mb-12 glow-text"></div>
             <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -210,14 +230,14 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-24 bg-[var(--bg-secondary)] rounded-2xl text-center">
+        <section id="contact" class="py-24 bg-[var(--bg-secondary)] rounded-2xl text-center fade-in-section">
              <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-4">Get In Touch</h2>
                  <div class="w-20 h-1 bg-[var(--accent-primary)] mx-auto mb-8 glow-text"></div>
                 <p class="max-w-2xl mx-auto text-[var(--text-secondary)] mb-8">
                     I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out.
                 </p>
-                <a id="user-email-link" href="#" class="inline-block bg-[var(--text-primary)] hover:opacity-80 text-[var(--bg-primary)] font-bold py-3 px-8 rounded-full transition-colors">
+                <a id="user-email-link" href="#" class="sleek-btn py-3 px-8">
                     Contact Me
                 </a>
             </div>
@@ -226,7 +246,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-24">
+    <footer id="page-footer" class="mt-24 fade-in-section">
         <div class="container mx-auto px-6 py-8 text-center text-[var(--text-secondary)]">
             <div class="flex justify-center space-x-6 mb-4">
                  <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
@@ -267,6 +287,9 @@
             githubFooterLink: document.getElementById('github-footer-link'),
             themeButtons: document.querySelectorAll('.theme-btn'),
             exploreWorkBtn: document.getElementById('explore-work-btn'),
+            projectsSection: document.getElementById('projects'),
+            contactSection: document.getElementById('contact'),
+            footer: document.getElementById('page-footer'),
         };
 
         // --- GITHUB API ---
@@ -405,12 +428,12 @@
                 });
             };
             
-            // Initial 2-second delay
+            // Initial 1-second delay
             setTimeout(() => {
                 typeAnimation(); 
                 // Cycle every 15 seconds, starting the delete-then-type sequence
-                setInterval(runSequence, 15000); 
-            }, 2000);
+                setInterval(runSequence, 15000);
+            }, 1000);
         }
 
         // --- EVENT HANDLERS & HELPERS ---
@@ -454,12 +477,16 @@
             
             setupThemeSwitcher();
             
-            // Delayed appearance for Explore button
+            // Delayed appearance for button and content
             setTimeout(() => {
                 if (elements.exploreWorkBtn) {
                     elements.exploreWorkBtn.classList.add('visible');
+                    // Reveal the rest of the content after the button
+                    elements.projectsSection.classList.add('visible');
+                    elements.contactSection.classList.add('visible');
+                    elements.footer.classList.add('visible');
                 }
-            }, 5000);
+            }, 1000);
 
             // Fetch data and render
             const userData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}`);
@@ -481,4 +508,7 @@
     </script>
 </body>
 </html>
+
+
+
 
