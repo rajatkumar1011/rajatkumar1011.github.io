@@ -10,113 +10,169 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        :root {
+            --bg-primary: #f9fafb;
+            --bg-secondary: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+            --accent-primary: #2563eb;
+            --accent-secondary: #3b82f6;
+            --header-bg: rgba(255, 255, 255, 0.8);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --glow-color: transparent;
+        }
+
+        [data-theme='dark'] {
+            --bg-primary: #030712;
+            --bg-secondary: #111827;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #60a5fa;
+            --header-bg: rgba(17, 24, 39, 0.8);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme='glow'] {
+            --bg-primary: #0d011a;
+            --bg-secondary: #1a0233;
+            --text-primary: #f0eaff;
+            --text-secondary: #c0b3d3;
+            --border-color: #4c1d95;
+            --accent-primary: #a78bfa;
+            --accent-secondary: #c4b5fd;
+            --header-bg: rgba(26, 2, 51, 0.8);
+            --shadow-sm: 0 0 8px rgba(167, 139, 250, 0.3);
+            --shadow-lg: 0 0 20px rgba(167, 139, 250, 0.5);
+            --glow-color: #a78bfa;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f9fafb; /* Light gray background */
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         .header-scrolled {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: var(--header-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--border-color);
         }
+
         .project-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
+
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        [data-theme='glow'] .project-card:hover {
+             box-shadow: 0 0 25px var(--glow-color);
+             border-color: var(--glow-color);
+        }
+        
+        [data-theme='glow'] .glow-text {
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .theme-btn.active {
+            color: var(--accent-primary);
         }
     </style>
 </head>
-<body class="text-gray-800">
+<body>
 
     <!-- Header & Navbar -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-gray-900">Portfolio</a>
-            <div class="hidden md:flex space-x-8 items-center text-gray-600">
-                <a href="#about" class="hover:text-blue-600 transition-colors">About</a>
-                <a href="#projects" class="hover:text-blue-600 transition-colors">Projects</a>
-                <a href="#contact" class="hover:text-blue-600 transition-colors">Contact</a>
+            <a href="#" class="text-2xl font-bold">Portfolio</a>
+            <div class="hidden md:flex space-x-8 items-center text-[var(--text-secondary)]">
+                <a href="#projects" class="hover:text-[var(--accent-secondary)] transition-colors">Projects</a>
+                <a href="#contact" class="hover:text-[var(--accent-secondary)] transition-colors">Contact</a>
+                 <div class="flex items-center space-x-1 border-l border-[var(--border-color)] pl-6">
+                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="light" aria-label="Light theme"><i data-lucide="sun"></i></button>
+                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="dark" aria-label="Dark theme"><i data-lucide="moon"></i></button>
+                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="glow" aria-label="Glow theme"><i data-lucide="sparkles"></i></button>
+                </div>
+                <a id="profile-link-nav" href="#" target="_blank" rel="noopener noreferrer" class="bg-[var(--text-primary)] hover:opacity-80 text-[var(--bg-primary)] font-semibold px-4 py-2 rounded-lg transition-colors">
+                    View GitHub
+                </a>
             </div>
-            <a id="profile-link-nav" href="https://github.com/rajatkumar1011/" target="_blank" rel="noopener noreferrer" class="hidden md:block bg-gray-900 hover:bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
-                View GitHub
-            </a>
-            <button id="mobile-menu-button" class="md:hidden text-gray-800">
+            <button id="mobile-menu-button" class="md:hidden">
                 <i data-lucide="menu"></i>
             </button>
         </nav>
     </header>
     
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-white z-40 md:hidden">
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-[var(--bg-primary)] z-40 md:hidden">
         <div class="flex justify-end p-6">
-            <button id="close-mobile-menu-button" class="text-gray-800">
+            <button id="close-mobile-menu-button">
                 <i data-lucide="x"></i>
             </button>
         </div>
-        <div class="flex flex-col items-center justify-center space-y-8 h-full text-2xl text-gray-800">
-            <a href="#about" class="mobile-menu-link hover:text-blue-600 transition-colors">About</a>
-            <a href="#projects" class="mobile-menu-link hover:text-blue-600 transition-colors">Projects</a>
-            <a href="#contact" class="mobile-menu-link hover:text-blue-600 transition-colors">Contact</a>
-            <a id="profile-link-mobile" href="https://github.com/rajatkumar1011/" target="_blank" rel="noopener noreferrer" class="bg-gray-900 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors mt-4">
+        <div class="flex flex-col items-center justify-center space-y-8 h-full text-2xl">
+            <a href="#projects" class="mobile-menu-link hover:text-[var(--accent-secondary)] transition-colors">Projects</a>
+            <a href="#contact" class="mobile-menu-link hover:text-[var(--accent-secondary)] transition-colors">Contact</a>
+            <div class="flex items-center space-x-4 pt-4">
+                <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="light" aria-label="Light theme"><i data-lucide="sun"></i></button>
+                <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="dark" aria-label="Dark theme"><i data-lucide="moon"></i></button>
+                <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="glow" aria-label="Glow theme"><i data-lucide="sparkles"></i></button>
+            </div>
+            <a id="profile-link-mobile" href="#" target="_blank" rel="noopener noreferrer" class="bg-[var(--text-primary)] hover:opacity-80 text-[var(--bg-primary)] font-semibold px-6 py-3 rounded-lg transition-colors mt-4">
                 View GitHub
             </a>
         </div>
     </div>
 
-
     <main class="container mx-auto px-6 pt-32 md:pt-40">
 
         <!-- Hero Section -->
         <section id="hero" class="text-center py-20">
-            <img id="user-avatar" src="https://placehold.co/128x128/e5e7eb/4b5563?text=Avatar" alt="User Avatar" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-lg">
-            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
-                Hi, I'm <span id="user-name" class="text-blue-600"></span>
+            <img id="user-avatar" src="https://placehold.co/128x128/e5e7eb/4b5563?text=Avatar" alt="User Avatar" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[var(--bg-secondary)] shadow-lg">
+            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">
+                Hi, I'm <span id="user-name" class="text-[var(--accent-primary)] glow-text"></span>
             </h1>
-            <p id="user-bio" class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8"></p>
-            <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">
+            <p id="user-bio" class="text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8"></p>
+            <a href="#projects" class="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">
                 Explore My Work
             </a>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-24 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">About Me</h2>
-                <div class="w-20 h-1 bg-blue-600 mx-auto mb-12"></div>
-                <div class="max-w-3xl mx-auto text-center">
-                    <p class="text-gray-700 leading-relaxed" id="user-about">
-                        <!-- Bio content will be loaded here -->
-                    </p>
-                </div>
-            </div>
-        </section>
-
         <!-- Projects Section -->
         <section id="projects" class="py-24">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">My Projects</h2>
-             <div class="w-20 h-1 bg-blue-600 mx-auto mb-12"></div>
+            <h2 class="text-3xl font-bold text-center mb-4">My Projects</h2>
+             <div class="w-20 h-1 bg-[var(--accent-primary)] mx-auto mb-12 glow-text"></div>
             <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Projects will be dynamically inserted here -->
                 <div id="loader" class="col-span-full flex justify-center items-center h-40">
-                    <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[var(--accent-primary)]"></div>
                 </div>
             </div>
             <div id="error-message" class="hidden col-span-full text-center text-red-500 p-8 bg-red-50 rounded-lg"></div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-24 bg-white text-center">
+        <section id="contact" class="py-24 bg-[var(--bg-secondary)] rounded-2xl text-center">
              <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">Get In Touch</h2>
-                 <div class="w-20 h-1 bg-blue-600 mx-auto mb-8"></div>
-                <p class="max-w-2xl mx-auto text-gray-700 mb-8">
-                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out to me.
+                <h2 class="text-3xl font-bold text-center mb-4">Get In Touch</h2>
+                 <div class="w-20 h-1 bg-[var(--accent-primary)] mx-auto mb-8 glow-text"></div>
+                <p class="max-w-2xl mx-auto text-[var(--text-secondary)] mb-8">
+                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out.
                 </p>
-                <a id="user-email-link" href="#" class="inline-block bg-gray-900 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
-                    Say Hello
+                <a id="user-email-link" href="#" class="inline-block bg-[var(--text-primary)] hover:opacity-80 text-[var(--bg-primary)] font-bold py-3 px-8 rounded-full transition-colors">
+                    Contact Me
                 </a>
             </div>
         </section>
@@ -124,13 +180,13 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+    <footer class="mt-24">
+        <div class="container mx-auto px-6 py-8 text-center text-[var(--text-secondary)]">
             <div class="flex justify-center space-x-6 mb-4">
-                 <a href="https://www.linkedin.com/in/rajatkumar7/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600 transition-colors">
+                 <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
                     <i data-lucide="linkedin" class="w-6 h-6"></i>
                 </a>
-                <a href="https://github.com/rajatkumar1011/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600 transition-colors">
+                <a id="github-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
                     <i data-lucide="github" class="w-6 h-6"></i>
                 </a>
             </div>
@@ -141,146 +197,171 @@
     <script>
         // --- CONFIGURATION ---
         const GITHUB_USERNAME = "rajatkumar1011";
+        const LINKEDIN_URL = "https://www.linkedin.com/in/rajatkumar7/";
 
-        // --- ELEMENTS ---
-        const userNameEl = document.getElementById('user-name');
-        const footerUserNameEl = document.getElementById('footer-user-name');
-        const userBioEl = document.getElementById('user-bio');
-        const userAboutEl = document.getElementById('user-about');
-        const userAvatarEl = document.getElementById('user-avatar');
-        const profileLinkNavEl = document.getElementById('profile-link-nav');
-        const profileLinkMobileEl = document.getElementById('profile-link-mobile');
-        const userEmailLinkEl = document.getElementById('user-email-link');
-        const projectsContainer = document.getElementById('projects-container');
-        const loader = document.getElementById('loader');
-        const errorMessageEl = document.getElementById('error-message');
-        const currentYearEl = document.getElementById('current-year');
-        const header = document.getElementById('header');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeMobileMenuButton = document.getElementById('close-mobile-menu-button');
-        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        // --- DOM ELEMENTS ---
+        const elements = {
+            userName: document.getElementById('user-name'),
+            footerUserName: document.getElementById('footer-user-name'),
+            userBio: document.getElementById('user-bio'),
+            userAvatar: document.getElementById('user-avatar'),
+            profileLinkNav: document.getElementById('profile-link-nav'),
+            profileLinkMobile: document.getElementById('profile-link-mobile'),
+            userEmailLink: document.getElementById('user-email-link'),
+            projectsContainer: document.getElementById('projects-container'),
+            loader: document.getElementById('loader'),
+            errorMessage: document.getElementById('error-message'),
+            currentYear: document.getElementById('current-year'),
+            header: document.getElementById('header'),
+            mobileMenuButton: document.getElementById('mobile-menu-button'),
+            mobileMenu: document.getElementById('mobile-menu'),
+            closeMobileMenuButton: document.getElementById('close-mobile-menu-button'),
+            mobileMenuLinks: document.querySelectorAll('.mobile-menu-link'),
+            linkedinLink: document.getElementById('linkedin-link'),
+            githubFooterLink: document.getElementById('github-footer-link'),
+            themeButtons: document.querySelectorAll('.theme-btn'),
+        };
 
-        // --- GITHUB API & DATA FETCHING ---
-
-        async function fetchGitHubUser(username) {
+        // --- GITHUB API ---
+        async function fetchGitHubAPI(endpoint) {
             try {
-                const response = await fetch(`https://api.github.com/users/${username}`);
-                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                const response = await fetch(`https://api.github.com/${endpoint}`);
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText} (status: ${response.status})`);
+                }
                 return await response.json();
             } catch (error) {
-                console.error("Failed to fetch GitHub user data:", error);
-                displayError(`Could not fetch user '${username}'.`);
+                console.error(`Failed to fetch from ${endpoint}:`, error);
+                displayError(`Could not fetch data from GitHub. The API rate limit may have been exceeded.`);
                 return null;
             }
         }
 
-        async function fetchGitHubRepos(username) {
-            try {
-                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`);
-                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
-                return await response.json();
-            } catch (error) {
-                console.error("Failed to fetch GitHub repos:", error);
-                displayError(`Could not fetch repositories for '${username}'.`);
-                return null;
-            }
-        }
-
-        // --- UI RENDERING & EVENT HANDLERS ---
-
+        // --- UI RENDERING ---
         function populateUserInfo(userData) {
             if (!userData) return;
             const name = userData.name || userData.login;
-            userNameEl.textContent = name;
-            footerUserNameEl.textContent = name;
-            const bioText = userData.bio || 'A passionate developer creating amazing things.';
-            userBioEl.textContent = bioText;
-            userAboutEl.textContent = bioText;
-            userAvatarEl.src = userData.avatar_url;
-            userAvatarEl.alt = `${name}'s Avatar`;
-            profileLinkNavEl.href = userData.html_url;
-            profileLinkMobileEl.href = userData.html_url;
-            if (userData.email) {
-                userEmailLinkEl.href = `mailto:${userData.email}`;
-            } else {
-                userEmailLinkEl.href = userData.html_url;
-                userEmailLinkEl.textContent = "Contact on GitHub";
-            }
+            elements.userName.textContent = name;
+            elements.footerUserName.textContent = name;
+            elements.userBio.textContent = userData.bio || 'A passionate developer creating amazing things.';
+            elements.userAvatar.src = userData.avatar_url;
+            elements.userAvatar.alt = `${name}'s Avatar`;
+            elements.profileLinkNav.href = userData.html_url;
+            elements.profileLinkMobile.href = userData.html_url;
+            elements.githubFooterLink.href = userData.html_url;
+            elements.linkedinLink.href = LINKEDIN_URL;
+
+            elements.userEmailLink.href = "mailto:rajatkumar7x@gmail.com";
         }
 
         function createProjectCards(repos) {
-            loader.style.display = 'none';
-            projectsContainer.innerHTML = '';
+            elements.loader.style.display = 'none';
+            elements.projectsContainer.innerHTML = '';
             if (!repos || repos.length === 0) {
-                projectsContainer.innerHTML = `<p class="col-span-full text-center text-gray-500">No public repositories found.</p>`;
+                elements.projectsContainer.innerHTML = `<p class="col-span-full text-center text-[var(--text-secondary)]">No public repositories found.</p>`;
                 return;
             }
 
             repos.forEach(repo => {
                 const card = document.createElement('div');
-                card.className = 'project-card bg-white p-6 rounded-lg border border-gray-200 flex flex-col';
+                card.className = 'project-card p-6 rounded-lg flex flex-col';
+
+                // Determine the deployment URL based on the repository name
+                let deployedUrl;
+                if (repo.name.toLowerCase() === 'rajatkumar1011.github.io') {
+                    deployedUrl = `https://rajatkumar1011.github.io/`;
+                } else {
+                    deployedUrl = `https://rajatkumar1.me/${repo.name}`;
+                }
+
+                const openLink = `
+                    <a href="${deployedUrl}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)]" title="View Deployed Site">
+                        <i data-lucide="external-link" class="w-5 h-5"></i>
+                    </a>`;
+                
                 const language = repo.language ? `<span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">${repo.language}</span>` : '';
                 
                 card.innerHTML = `
                     <div class="flex-grow">
                         <div class="flex justify-between items-start mb-3">
-                            <h3 class="text-lg font-bold text-gray-900">${repo.name}</h3>
-                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600">
-                                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
-                            </a>
+                            <h3 class="text-lg font-bold text-[var(--text-primary)]">${repo.name}</h3>
+                            <div class="flex items-center space-x-3">
+                                ${openLink}
+                                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)]" title="View on GitHub">
+                                    <i data-lucide="github" class="w-5 h-5"></i>
+                                </a>
+                            </div>
                         </div>
-                        <p class="text-gray-600 text-sm mb-4 min-h-[40px]">
+                        <p class="text-[var(--text-secondary)] text-sm mb-4 min-h-[40px]">
                             ${repo.description || 'No description available.'}
                         </p>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-gray-500">
+                    <div class="mt-4 pt-4 border-t border-[var(--border-color)] flex justify-between items-center text-sm text-[var(--text-secondary)]">
                         <div class="flex space-x-4">
                             <div class="flex items-center space-x-1"><i data-lucide="star" class="w-4 h-4 text-yellow-500"></i><span>${repo.stargazers_count}</span></div>
-                            <div class="flex items-center space-x-1"><i data-lucide="git-fork" class="w-4 h-4 text-gray-400"></i><span>${repo.forks_count}</span></div>
+                            <div class="flex items-center space-x-1"><i data-lucide="git-fork" class="w-4 h-4"></i><span>${repo.forks_count}</span></div>
                         </div>
                         ${language}
                     </div>
                 `;
-                projectsContainer.appendChild(card);
+                elements.projectsContainer.appendChild(card);
             });
             
             lucide.createIcons();
         }
 
         function displayError(message) {
-            loader.style.display = 'none';
-            errorMessageEl.textContent = `Error: ${message}`;
-            errorMessageEl.classList.remove('hidden');
+            elements.loader.style.display = 'none';
+            elements.errorMessage.textContent = `Error: ${message}`;
+            elements.errorMessage.classList.remove('hidden');
         }
 
+        // --- EVENT HANDLERS & HELPERS ---
         function handleScroll() {
             if (window.scrollY > 50) {
-                header.classList.add('header-scrolled');
+                elements.header.classList.add('header-scrolled');
             } else {
-                header.classList.remove('header-scrolled');
+                elements.header.classList.remove('header-scrolled');
             }
         }
         
         function toggleMobileMenu() {
-            mobileMenu.classList.toggle('hidden');
+            elements.mobileMenu.classList.toggle('hidden');
+        }
+
+        // --- THEME SWITCHER ---
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            elements.themeButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.theme === theme);
+            });
+        }
+
+        function setupThemeSwitcher() {
+            elements.themeButtons.forEach(btn => {
+                btn.addEventListener('click', () => setTheme(btn.dataset.theme));
+            });
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
         }
 
         // --- INITIALIZATION ---
-
         async function init() {
             // Page setup
-            currentYearEl.textContent = new Date().getFullYear();
+            elements.currentYear.textContent = new Date().getFullYear();
             window.addEventListener('scroll', handleScroll);
-            mobileMenuButton.addEventListener('click', toggleMobileMenu);
-            closeMobileMenuButton.addEventListener('click', toggleMobileMenu);
-            mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+            elements.mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            elements.closeMobileMenuButton.addEventListener('click', toggleMobileMenu);
+            elements.mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+            
+            setupThemeSwitcher();
 
-            // Fetch data
-            const userData = await fetchGitHubUser(GITHUB_USERNAME);
+            // Fetch data and render
+            const userData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}`);
             if (userData) {
                 populateUserInfo(userData);
-                const repos = await fetchGitHubRepos(GITHUB_USERNAME);
+                const repos = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=6`);
                 if (repos) {
                     createProjectCards(repos);
                 }
@@ -290,7 +371,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', init);
-
     </script>
 </body>
 </html>
+
+
+
