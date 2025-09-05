@@ -363,7 +363,8 @@
                 card.style.transitionDelay = `${index * 100}ms`;
 
                 const language = repo.language ? `<span class="text-xs font-semibold bg-[var(--bg-tertiary)] text-[var(--accent-primary)] px-2 py-1 rounded-full">${repo.language}</span>` : '';
-                const openLink = repo.homepage ? `<a href="${repo.homepage}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors" aria-label="Open project deployment"><i data-lucide="arrow-up-right" class="w-5 h-5"></i></a>` : '';
+                const deploymentUrl = repo.homepage || `https://rajatkumar1.me/${repo.name}`;
+                const openLink = `<a href="${deploymentUrl}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors" aria-label="Open project deployment"><i data-lucide="external-link" class="w-5 h-5"></i></a>`;
 
                 card.innerHTML = `
                     <div class="flex-grow">
@@ -521,6 +522,4 @@
     </script>
 </body>
 </html>
-
-
 
