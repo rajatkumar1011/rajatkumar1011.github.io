@@ -3,51 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Portfolio</title>
+    <title>Rajat Kumar | Software Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --bg-primary: #f9fafb;
+            --bg-primary: #fdfdff;
             --bg-secondary: #ffffff;
-            --text-primary: #1f2937;
-            --text-secondary: #4b5563;
-            --border-color: #e5e7eb;
-            --accent-primary: #2563eb;
-            --accent-secondary: #3b82f6;
-            --header-bg: rgba(255, 255, 255, 0.8);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+            --accent-primary: #4f46e5;
+            --accent-secondary: #6366f1;
+            --header-bg: rgba(253, 253, 255, 0.8);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
             --glow-color: transparent;
         }
 
         [data-theme='dark'] {
-            --bg-primary: #030712;
-            --bg-secondary: #111827;
-            --text-primary: #f9fafb;
-            --text-secondary: #9ca3af;
-            --border-color: #374151;
-            --accent-primary: #3b82f6;
-            --accent-secondary: #60a5fa;
-            --header-bg: rgba(17, 24, 39, 0.8);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            --bg-primary: #020617;
+            --bg-secondary: #0f172a;
+            --bg-tertiary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --accent-primary: #818cf8;
+            --accent-secondary: #a78bfa;
+            --header-bg: rgba(2, 6, 23, 0.7);
         }
 
         [data-theme='glow'] {
-            --bg-primary: #0d011a;
-            --bg-secondary: #1a0233;
+            --bg-primary: #0a001a;
+            --bg-secondary: #1c0f2e;
+            --bg-tertiary: #2d1b4a;
             --text-primary: #f0eaff;
             --text-secondary: #c0b3d3;
             --border-color: #4c1d95;
             --accent-primary: #a78bfa;
             --accent-secondary: #c4b5fd;
-            --header-bg: rgba(26, 2, 51, 0.8);
-            --shadow-sm: 0 0 8px rgba(167, 139, 250, 0.3);
-            --shadow-lg: 0 0 20px rgba(167, 139, 250, 0.5);
             --glow-color: #a78bfa;
         }
 
@@ -60,117 +58,94 @@
 
         .header-scrolled {
             background-color: var(--header-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
-        }
-
-        .project-card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: var(--shadow-sm);
         }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
         
-        [data-theme='glow'] .project-card:hover {
-             box-shadow: 0 0 25px var(--glow-color);
-             border-color: var(--glow-color);
-        }
-        
-        [data-theme='glow'] .glow-text {
-            text-shadow: 0 0 8px var(--glow-color);
-        }
-
-        .theme-btn.active {
-            color: var(--accent-primary);
-        }
+        [data-theme='glow'] .glow-text { text-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(167, 139, 250, 0.5); }
+        .theme-btn.active { color: var(--accent-primary); }
 
         #user-bio {
-            min-height: 1.75rem; /* Prevents layout shift for text-lg/text-xl */
-            overflow-wrap: break-word; /* Fixes text wrapping issue during animation */
-            word-wrap: break-word; /* Legacy fallback */
+            min-height: 1.75rem; 
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
+
         .typing-cursor::after {
             content: '|';
-            display: inline-block;
             animation: blink 1s step-end infinite;
-            color: var(--text-secondary);
+            color: var(--accent-secondary);
             margin-left: 0.125rem;
         }
-
-        @keyframes blink {
-            from, to { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        @keyframes blink { 50% { opacity: 0; } }
 
         .sleek-btn {
-            border: 2px solid var(--accent-primary);
-            color: var(--accent-primary);
-            background-color: transparent;
-            font-weight: 600; /* semibold */
-            border-radius: 9999px; /* rounded-full */
-            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--accent-primary);
+            color: var(--bg-primary);
+            font-weight: 600;
+            border-radius: 9999px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 0 0 0 rgba(0,0,0,0); /* Placeholder for transition */
         }
 
         .sleek-btn:hover {
-            transform: scale(1.05);
-            color: var(--bg-primary);
-            background-color: var(--accent-primary);
-            box-shadow: 0 0 20px var(--accent-primary);
-        }
-        
-        [data-theme='glow'] .sleek-btn {
-             box-shadow: 0 0 10px var(--glow-color);
+            transform: translateY(-2px);
+            background-color: var(--accent-secondary);
+            box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--accent-primary) 40%, transparent);
         }
 
-        [data-theme='glow'] .sleek-btn:hover {
-            box-shadow: 0 0 25px var(--glow-color), 0 0 40px var(--glow-color) inset;
+        .sleek-btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
         }
-        
-        #explore-work-btn {
+         .sleek-btn-secondary:hover {
+            background-color: var(--border-color);
+            box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--text-secondary) 20%, transparent);
+         }
+
+        .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-
-        #explore-work-btn.visible {
+        .reveal-on-scroll.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s 0.3s ease-out, transform 0.5s 0.3s ease-out;
+        .reveal-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+        .reveal-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+        .reveal-on-scroll:nth-child(4) { transition-delay: 0.3s; }
+        
+        .avatar-ring {
+            box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 6px var(--accent-primary);
+            animation: pulse-ring 2s ease-in-out infinite;
         }
 
-        .fade-in-section.visible {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 6px var(--accent-primary); }
+            50% { box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 12px color-mix(in srgb, var(--accent-primary) 30%, transparent); }
+            100% { box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 6px var(--accent-primary); }
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
     <!-- Header & Navbar -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="." class="text-2xl font-bold">Portfolio</a>
-            <div class="hidden md:flex space-x-8 items-center text-[var(--text-secondary)]">
-                <a href="#hero" class="hover:text-[var(--accent-secondary)] transition-colors">About</a>
-                <a href="#projects" class="hover:text-[var(--accent-secondary)] transition-colors">Projects</a>
-                <a href="#contact" class="hover:text-[var(--accent-secondary)] transition-colors">Contact</a>
-                 <div class="flex items-center space-x-1 border-l border-[var(--border-color)] pl-6">
-                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="light" aria-label="Light theme"><i data-lucide="sun"></i></button>
-                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="dark" aria-label="Dark theme"><i data-lucide="moon"></i></button>
-                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="glow" aria-label="Glow theme"><i data-lucide="sparkles"></i></button>
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="." class="text-xl font-bold">Rajat Kumar</a>
+            <div class="hidden md:flex space-x-6 items-center text-[var(--text-secondary)]">
+                <a href="#hero" class="hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium">About</a>
+                <a href="#projects" class="hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium">Projects</a>
+                <a href="#contact" class="hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium">Contact</a>
+                 <div class="flex items-center space-x-1 border-l border-[var(--border-color)] pl-5 ml-2">
+                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-tertiary)]" data-theme="light" aria-label="Light theme"><i data-lucide="sun" class="w-5 h-5"></i></button>
+                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-tertiary)]" data-theme="dark" aria-label="Dark theme"><i data-lucide="moon" class="w-5 h-5"></i></button>
+                    <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-tertiary)]" data-theme="glow" aria-label="Glow theme"><i data-lucide="sparkles" class="w-5 h-5"></i></button>
                 </div>
-                <a id="profile-link-nav" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn px-4 py-2">
+                <a id="profile-link-nav" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn px-4 py-2 text-sm">
                     View GitHub
                 </a>
             </div>
@@ -180,48 +155,44 @@
         </nav>
     </header>
     
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden fixed inset-0 bg-[var(--bg-primary)] z-40 md:hidden">
         <div class="flex justify-end p-6">
-            <button id="close-mobile-menu-button">
-                <i data-lucide="x"></i>
-            </button>
+            <button id="close-mobile-menu-button"><i data-lucide="x"></i></button>
         </div>
-        <div class="flex flex-col items-center justify-center space-y-8 h-full text-2xl">
-            <a href="#hero" class="mobile-menu-link hover:text-[var(--accent-secondary)] transition-colors">About</a>
-            <a href="#projects" class="mobile-menu-link hover:text-[var(--accent-secondary)] transition-colors">Projects</a>
-            <a href="#contact" class="mobile-menu-link hover:text-[var(--accent-secondary)] transition-colors">Contact</a>
+        <div class="flex flex-col items-center justify-center space-y-8 h-full text-xl">
+            <a href="#hero" class="mobile-menu-link">About</a>
+            <a href="#projects" class="mobile-menu-link">Projects</a>
+            <a href="#contact" class="mobile-menu-link">Contact</a>
             <div class="flex items-center space-x-4 pt-4">
-                <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="light" aria-label="Light theme"><i data-lucide="sun"></i></button>
-                <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="dark" aria-label="Dark theme"><i data-lucide="moon"></i></button>
-                <button class="theme-btn p-2 rounded-full hover:bg-[var(--bg-secondary)]" data-theme="glow" aria-label="Glow theme"><i data-lucide="sparkles"></i></button>
+                <button class="theme-btn p-2" data-theme="light"><i data-lucide="sun"></i></button>
+                <button class="theme-btn p-2" data-theme="dark"><i data-lucide="moon"></i></button>
+                <button class="theme-btn p-2" data-theme="glow"><i data-lucide="sparkles"></i></button>
             </div>
-            <a id="profile-link-mobile" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn px-6 py-3 mt-4">
-                View GitHub
-            </a>
+            <a id="profile-link-mobile" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn px-6 py-3 mt-4">View GitHub</a>
         </div>
     </div>
 
-    <main class="container mx-auto px-6 pt-32 md:pt-40">
+    <main class="container mx-auto px-6 pt-32 md:pt-48">
 
-        <!-- Hero Section -->
-        <section id="hero" class="text-center py-20">
-            <img id="user-avatar" src="https://placehold.co/128x128/e5e7eb/4b5563?text=Avatar" alt="User Avatar" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[var(--bg-secondary)] shadow-lg">
-            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">
+        <section id="hero" class="text-center max-w-4xl mx-auto">
+            <img id="user-avatar" src="https://placehold.co/128x128/e5e7eb/4b5563?text=Avatar" alt="User Avatar" class="w-32 h-32 md:w-36 md:h-36 rounded-full mx-auto mb-6 avatar-ring">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 reveal-on-scroll">
                 Hi, I'm <span id="user-name" class="text-[var(--accent-primary)] glow-text"></span>
             </h1>
-            <p id="user-bio" class="text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8"></p>
-            <a id="explore-work-btn" href="#projects" class="sleek-btn py-3 px-8">
-                Explore My Work
-            </a>
+            <p id="user-bio" class="text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8 reveal-on-scroll"></p>
+            <div class="flex justify-center items-center space-x-4 reveal-on-scroll">
+                <a id="explore-work-btn" href="#projects" class="sleek-btn py-3 px-6 text-base">
+                    Explore My Work
+                </a>
+            </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-16 md:py-24 fade-in-section">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">My Projects</h2>
-             <div class="w-20 h-1 bg-[var(--accent-primary)] mx-auto mb-12 glow-text"></div>
+        <section id="projects" class="py-24 md:py-32">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 reveal-on-scroll">My Projects</h2>
+                <p id="projects-subtitle" class="text-md md:text-lg text-[var(--text-secondary)] reveal-on-scroll"></p>
+            </div>
             <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Projects will be dynamically inserted here -->
                 <div id="loader" class="col-span-full flex justify-center items-center h-40">
                     <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[var(--accent-primary)]"></div>
                 </div>
@@ -229,31 +200,28 @@
             <div id="error-message" class="hidden col-span-full text-center text-red-500 p-8 bg-red-50 rounded-lg"></div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-16 md:py-24 bg-[var(--bg-secondary)] rounded-2xl text-center fade-in-section">
-             <div class="container mx-auto px-6">
-                <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">Get In Touch</h2>
-                 <div class="w-20 h-1 bg-[var(--accent-primary)] mx-auto mb-8 glow-text"></div>
-                <p class="max-w-2xl mx-auto text-[var(--text-secondary)] mb-8">
-                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out.
+        <section id="contact" class="py-24 bg-[var(--bg-tertiary)] rounded-2xl text-center reveal-on-scroll">
+             <div class="container mx-auto px-6 max-w-2xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-md md:text-lg text-[var(--text-secondary)] mb-8">
+                    I'm currently open to new opportunities and collaborations. My inbox is always open, whether you have a question or just want to say hi, I'll get back to you!
                 </p>
-                <a id="user-email-link" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn py-3 px-8">
-                    Contact Me
+                <a id="contact-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn py-3 px-8 text-lg inline-block">
+                    Say Hello
                 </a>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer id="page-footer" class="mt-16 md:mt-24 fade-in-section">
-        <div class="container mx-auto px-6 py-8 text-center text-[var(--text-secondary)]">
+    <footer id="page-footer" class="mt-24 pb-8">
+        <div class="container mx-auto px-6 text-center text-sm text-[var(--text-secondary)]">
             <div class="flex justify-center space-x-6 mb-4">
                  <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                    <i data-lucide="linkedin" class="w-6 h-6"></i>
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
                 </a>
                 <a id="github-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                    <i data-lucide="github" class="w-6 h-6"></i>
+                    <i data-lucide="github" class="w-5 h-5"></i>
                 </a>
             </div>
             <p>&copy; <span id="current-year"></span> <span id="footer-user-name"></span>. All Rights Reserved.</p>
@@ -264,6 +232,7 @@
         // --- CONFIGURATION ---
         const GITHUB_USERNAME = "rajatkumar1011";
         const LINKEDIN_URL = "https://www.linkedin.com/in/rajatkumar7/";
+        const CONTACT_EMAIL_LINK = "https://mail.google.com/mail/u/0/?fs=1&to=rajatkumar7x@gmail.com&tf=cm";
 
         // --- DOM ELEMENTS ---
         const elements = {
@@ -273,7 +242,7 @@
             userAvatar: document.getElementById('user-avatar'),
             profileLinkNav: document.getElementById('profile-link-nav'),
             profileLinkMobile: document.getElementById('profile-link-mobile'),
-            userEmailLink: document.getElementById('user-email-link'),
+            contactFooterLink: document.getElementById('contact-footer-link'),
             projectsContainer: document.getElementById('projects-container'),
             loader: document.getElementById('loader'),
             errorMessage: document.getElementById('error-message'),
@@ -286,23 +255,18 @@
             linkedinLink: document.getElementById('linkedin-link'),
             githubFooterLink: document.getElementById('github-footer-link'),
             themeButtons: document.querySelectorAll('.theme-btn'),
-            exploreWorkBtn: document.getElementById('explore-work-btn'),
-            projectsSection: document.getElementById('projects'),
-            contactSection: document.getElementById('contact'),
-            footer: document.getElementById('page-footer'),
+            projectsSubtitle: document.getElementById('projects-subtitle'),
         };
 
         // --- GITHUB API ---
         async function fetchGitHubAPI(endpoint) {
             try {
                 const response = await fetch(`https://api.github.com/${endpoint}`);
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok: ${response.statusText} (status: ${response.status})`);
-                }
+                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
                 return await response.json();
             } catch (error) {
-                console.error(`Failed to fetch from ${endpoint}:`, error);
-                displayError(`Could not fetch data from GitHub. The API rate limit may have been exceeded.`);
+                console.error(`Failed to fetch GitHub data from ${endpoint}:`, error);
+                displayError(`Could not fetch data. Please check the console.`);
                 return null;
             }
         }
@@ -313,49 +277,37 @@
             const name = userData.name || userData.login;
             elements.userName.textContent = name;
             elements.footerUserName.textContent = name;
-            // Bio is now handled by the typewriter effect
             elements.userAvatar.src = userData.avatar_url;
             elements.userAvatar.alt = `${name}'s Avatar`;
             elements.profileLinkNav.href = userData.html_url;
             elements.profileLinkMobile.href = userData.html_url;
             elements.githubFooterLink.href = userData.html_url;
-            elements.linkedinLink.href = LINKEDIN_URL;
         }
 
         function createProjectCards(repos) {
-            elements.loader.style.display = 'none';
-            elements.projectsContainer.innerHTML = '';
             if (!repos || repos.length === 0) {
                 elements.projectsContainer.innerHTML = `<p class="col-span-full text-center text-[var(--text-secondary)]">No public repositories found.</p>`;
                 return;
             }
 
-            repos.forEach(repo => {
+            repos.forEach((repo, index) => {
                 const card = document.createElement('div');
-                card.className = 'project-card p-6 rounded-lg flex flex-col';
+                card.className = 'bg-[var(--bg-secondary)] p-6 rounded-lg border border-[var(--border-color)] flex flex-col transition-transform duration-300 hover:-translate-y-1 reveal-on-scroll';
+                card.style.transitionDelay = `${index * 100}ms`;
 
-                // Determine the deployment URL based on the repository name
-                let deployedUrl;
-                if (repo.name.toLowerCase() === 'rajatkumar1011.github.io') {
-                    deployedUrl = `https://rajatkumar1011.github.io/`;
-                } else {
-                    deployedUrl = `https://rajatkumar1.me/${repo.name}`;
-                }
+                const language = repo.language ? `<span class="text-xs font-semibold bg-[var(--bg-tertiary)] text-[var(--accent-primary)] px-2 py-1 rounded-full">${repo.language}</span>` : '';
+                const deploymentUrl = repo.name.toLowerCase() === 'rajatkumar1011.github.io' ? `https://${repo.name}` : `https://rajatkumar1.me/${repo.name}`;
+                const openLink = repo.homepage || deploymentUrl;
 
-                const openLink = `
-                    <a href="${deployedUrl}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)]" title="View Deployed Site">
-                        <i data-lucide="external-link" class="w-5 h-5"></i>
-                    </a>`;
-                
-                const language = repo.language ? `<span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">${repo.language}</span>` : '';
-                
                 card.innerHTML = `
                     <div class="flex-grow">
                         <div class="flex justify-between items-start mb-3">
-                            <h3 class="text-lg font-bold text-[var(--text-primary)]">${repo.name}</h3>
-                            <div class="flex items-center space-x-3">
-                                ${openLink}
-                                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)]" title="View on GitHub">
+                            <h3 class="text-lg font-bold text-[var(--text-primary)] pr-4">${repo.name}</h3>
+                            <div class="flex items-center space-x-3 flex-shrink-0">
+                                <a href="${openLink}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors" aria-label="Open project deployment">
+                                    <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                                </a>
+                                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors" aria-label="View on GitHub">
                                     <i data-lucide="github" class="w-5 h-5"></i>
                                 </a>
                             </div>
@@ -374,8 +326,6 @@
                 `;
                 elements.projectsContainer.appendChild(card);
             });
-            
-            lucide.createIcons();
         }
 
         function displayError(message) {
@@ -386,57 +336,77 @@
 
         // --- TYPEWRITER EFFECT ---
         function setupTypewriterCycle(element, text) {
+            if (!element) return;
             const typeAnimation = (onComplete) => {
+                let i = 0;
                 element.textContent = '';
                 element.classList.add('typing-cursor');
-                let i = 0;
-                
-                function typeChar() {
+                const type = () => {
                     if (i < text.length) {
-                        element.textContent += text.charAt(i);
-                        i++;
-                        setTimeout(typeChar, 55); // Typing speed
+                        element.textContent += text.charAt(i++);
+                        setTimeout(type, 50);
                     } else {
                         element.classList.remove('typing-cursor');
                         if (onComplete) onComplete();
                     }
-                }
-                typeChar();
+                };
+                type();
             };
-            
+
             const deleteAnimation = (onComplete) => {
+                let i = text.length;
                 element.classList.add('typing-cursor');
-                let i = element.textContent.length;
-                if (i === 0) {
-                    onComplete();
-                    return;
-                }
-                function deleteChar() {
+                const del = () => {
                     if (i > 0) {
-                        element.textContent = element.textContent.substring(0, i - 1);
-                        i--;
-                        setTimeout(deleteChar, 30); // Deleting speed
+                        element.textContent = text.substring(0, --i);
+                        setTimeout(del, 30);
                     } else {
+                        element.classList.remove('typing-cursor');
                         if (onComplete) onComplete();
                     }
-                }
-                deleteChar();
+                };
+                del();
             };
 
             const scheduleNextCycle = () => {
-                setTimeout(() => {
-                    deleteAnimation(() => {
-                        setTimeout(() => {
-                            typeAnimation(scheduleNextCycle); // Recursive call to loop
-                        }, 500); // Pause before re-typing
-                    });
-                }, 15000); // Pause after typing is complete
+                setTimeout(() => deleteAnimation(() => setTimeout(() => typeAnimation(scheduleNextCycle), 500)), 15000);
             };
-            
-            // Initial 1-second delay
-            setTimeout(() => {
-                typeAnimation(scheduleNextCycle); // Start the first cycle
-            }, 1000);
+
+            setTimeout(() => typeAnimation(scheduleNextCycle), 1000);
+        }
+
+        function typeSingleLine(element, text) {
+            if (element.dataset.typed) return; // Prevent re-typing
+            element.dataset.typed = 'true';
+            element.textContent = '';
+            element.classList.add('typing-cursor');
+            let i = 0;
+            function typeChar() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i++);
+                    setTimeout(typeChar, 50);
+                } else {
+                    element.classList.remove('typing-cursor');
+                }
+            }
+            typeChar();
+        }
+
+        // --- SCROLL ANIMATIONS ---
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        if (entry.target.id === 'projects-subtitle') {
+                            typeSingleLine(entry.target, "Here are a few projects I've worked on recently.");
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
         }
 
         // --- EVENT HANDLERS & HELPERS ---
@@ -452,67 +422,52 @@
             elements.mobileMenu.classList.toggle('hidden');
         }
 
-        // --- THEME SWITCHER ---
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            elements.themeButtons.forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.theme === theme);
-            });
-        }
-
-        function setupThemeSwitcher() {
-            elements.themeButtons.forEach(btn => {
-                btn.addEventListener('click', () => setTheme(btn.dataset.theme));
-            });
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
+            elements.themeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme));
         }
 
         // --- INITIALIZATION ---
         async function init() {
-            // Page setup
             elements.currentYear.textContent = new Date().getFullYear();
             window.addEventListener('scroll', handleScroll);
             elements.mobileMenuButton.addEventListener('click', toggleMobileMenu);
             elements.closeMobileMenuButton.addEventListener('click', toggleMobileMenu);
             elements.mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
             
-            setupThemeSwitcher();
-
-            // Set static links immediately to prevent them from failing on API error
-            elements.userEmailLink.href = "https://mail.google.com/mail/u/0/?fs=1&to=rajatkumar7x@gmail.com&tf=cm";
+            elements.themeButtons.forEach(btn => btn.addEventListener('click', () => setTheme(btn.dataset.theme)));
+            setTheme(localStorage.getItem('theme') || 'light');
             
-            // Delayed appearance for button and content
-            setTimeout(() => {
-                if (elements.exploreWorkBtn) {
-                    elements.exploreWorkBtn.classList.add('visible');
-                    // Reveal the rest of the content after the button
-                    elements.projectsSection.classList.add('visible');
-                    elements.contactSection.classList.add('visible');
-                    elements.footer.classList.add('visible');
-                }
-            }, 1000);
+            elements.linkedinLink.href = LINKEDIN_URL;
+            elements.contactFooterLink.href = CONTACT_EMAIL_LINK;
 
-            // Fetch data and render
             const userData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}`);
             if (userData) {
                 populateUserInfo(userData);
-                const bioText = userData.bio || 'A passionate developer creating amazing things.';
-                setupTypewriterCycle(elements.userBio, bioText);
-                
-                const repos = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=6`);
-                if (repos) {
-                    createProjectCards(repos);
-                }
+                setupTypewriterCycle(elements.userBio, userData.bio || 'A passionate developer creating amazing things.');
+            } else {
+                elements.userName.textContent = "Developer";
+                setupTypewriterCycle(elements.userBio, 'A passionate developer creating amazing things.');
+            }
+
+            const reposData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=8`);
+            if (reposData) {
+                const excludedRepos = ['rajatkumar1011.github.io', 'python-gym'];
+                const filteredRepos = reposData
+                    .filter(repo => !excludedRepos.includes(repo.name.toLowerCase()))
+                    .slice(0, 6);
+
+                elements.projectsContainer.innerHTML = ''; // Clear loader before creating cards
+                createProjectCards(filteredRepos);
             }
             
             lucide.createIcons();
+            setupScrollAnimations();
         }
 
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
-
 
