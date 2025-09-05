@@ -190,18 +190,18 @@
 
     <!-- Header & Navbar -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <nav class="flex justify-between items-center px-6 py-3 md:grid md:grid-cols-3 md:items-center">
-            <div class="md:justify-self-start">
+        <nav class="relative flex justify-between items-center px-6 py-3">
+            <div>
                 <a href="." class="text-xl font-bold uppercase tracking-widest">PORTFOLIO</a>
             </div>
             
-            <div class="hidden md:flex items-center justify-center space-x-8 md:justify-self-center">
+            <div class="hidden md:flex absolute top-1/2 left-1/2 [transform:translate(calc(-50%+8px),-50%)] items-center justify-center space-x-8">
                 <a href="#hero" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">About</a>
                 <a href="#projects" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">Projects</a>
                 <a href="#contact" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">Contact</a>
             </div>
 
-            <div class="md:justify-self-end">
+            <div>
                 <div class="hidden md:flex">
                     <button class="theme-toggle" aria-label="Toggle theme">
                         <div class="theme-switch">
@@ -542,4 +542,5 @@
     </script>
 </body>
 </html>
+
 
