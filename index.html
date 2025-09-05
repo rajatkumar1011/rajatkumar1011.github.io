@@ -237,7 +237,7 @@
                 <p class="max-w-2xl mx-auto text-[var(--text-secondary)] mb-8">
                     I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out.
                 </p>
-                <a id="user-email-link" href="#" class="sleek-btn py-3 px-8">
+                <a id="user-email-link" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn py-3 px-8">
                     Contact Me
                 </a>
             </div>
@@ -320,8 +320,6 @@
             elements.profileLinkMobile.href = userData.html_url;
             elements.githubFooterLink.href = userData.html_url;
             elements.linkedinLink.href = LINKEDIN_URL;
-
-            elements.userEmailLink.href = "mailto:rajatkumar7x@gmail.com";
         }
 
         function createProjectCards(repos) {
@@ -388,7 +386,7 @@
 
         // --- TYPEWRITER EFFECT ---
         function setupTypewriterCycle(element, text) {
-            const typeAnimation = () => {
+            const typeAnimation = (onComplete) => {
                 element.textContent = '';
                 element.classList.add('typing-cursor');
                 let i = 0;
@@ -398,12 +396,16 @@
                         element.textContent += text.charAt(i);
                         i++;
                         setTimeout(typeChar, 55); // Typing speed
+                    } else {
+                        element.classList.remove('typing-cursor');
+                        if (onComplete) onComplete();
                     }
                 }
                 typeChar();
             };
             
             const deleteAnimation = (onComplete) => {
+                element.classList.add('typing-cursor');
                 let i = element.textContent.length;
                 if (i === 0) {
                     onComplete();
@@ -415,24 +417,25 @@
                         i--;
                         setTimeout(deleteChar, 30); // Deleting speed
                     } else {
-                        onComplete();
+                        if (onComplete) onComplete();
                     }
                 }
                 deleteChar();
             };
 
-            const runSequence = () => {
-                deleteAnimation(() => {
-                    // Short pause after deleting before re-typing
-                    setTimeout(typeAnimation, 500); 
-                });
+            const scheduleNextCycle = () => {
+                setTimeout(() => {
+                    deleteAnimation(() => {
+                        setTimeout(() => {
+                            typeAnimation(scheduleNextCycle); // Recursive call to loop
+                        }, 500); // Pause before re-typing
+                    });
+                }, 15000); // Pause after typing is complete
             };
             
             // Initial 1-second delay
             setTimeout(() => {
-                typeAnimation(); 
-                // Cycle every 15 seconds, starting the delete-then-type sequence
-                setInterval(runSequence, 15000);
+                typeAnimation(scheduleNextCycle); // Start the first cycle
             }, 1000);
         }
 
@@ -476,6 +479,9 @@
             elements.mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
             
             setupThemeSwitcher();
+
+            // Set static links immediately to prevent them from failing on API error
+            elements.userEmailLink.href = "https://mail.google.com/mail/u/0/?fs=1&to=rajatkumar7x@gmail.com&tf=cm";
             
             // Delayed appearance for button and content
             setTimeout(() => {
@@ -508,4 +514,5 @@
     </script>
 </body>
 </html>
+
 
