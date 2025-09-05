@@ -153,6 +153,13 @@
             background-color: var(--accent-secondary);
             box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--accent-primary) 40%, transparent);
         }
+        
+        .sleek-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
         .reveal-on-scroll {
             opacity: 0;
@@ -183,29 +190,31 @@
 
     <!-- Header & Navbar -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <nav class="relative flex items-center justify-between px-6 py-3">
             <a href="." class="text-xl font-bold uppercase tracking-widest">PORTFOLIO</a>
             
-            <div class="hidden md:flex flex-grow justify-center items-center text-[var(--text-secondary)] space-x-8">
-                <a href="#hero" class="hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium">About</a>
-                <a href="#projects" class="hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium">Projects</a>
-                <a href="#contact" class="hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium">Contact</a>
+            <div class="absolute hidden -translate-x-1/2 -translate-y-1/2 md:flex top-1/2 left-1/2 text-[var(--text-secondary)] space-x-8">
+                <a href="#hero" class="transition-colors hover:text-[var(--accent-secondary)] text-sm font-medium">About</a>
+                <a href="#projects" class="transition-colors hover:text-[var(--accent-secondary)] text-sm font-medium">Projects</a>
+                <a href="#contact" class="transition-colors hover:text-[var(--accent-secondary)] text-sm font-medium">Contact</a>
             </div>
 
-            <div class="hidden md:flex justify-end">
-                <button class="theme-toggle" aria-label="Toggle theme">
-                    <div class="theme-switch">
-                       <div class="theme-switch-thumb">
-                            <i data-lucide="sun" class="w-4 h-4 icon sun-icon"></i>
-                            <i data-lucide="moon" class="w-4 h-4 icon moon-icon"></i>
-                       </div>
-                    </div>
+            <div>
+                <div class="hidden md:flex">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <div class="theme-switch">
+                           <div class="theme-switch-thumb">
+                                <i data-lucide="sun" class="w-4 h-4 icon sun-icon"></i>
+                                <i data-lucide="moon" class="w-4 h-4 icon moon-icon"></i>
+                           </div>
+                        </div>
+                    </button>
+                </div>
+    
+                <button id="mobile-menu-button" class="md:hidden">
+                    <i data-lucide="menu"></i>
                 </button>
             </div>
-
-            <button id="mobile-menu-button" class="md:hidden">
-                <i data-lucide="menu"></i>
-            </button>
         </nav>
     </header>
     
@@ -219,13 +228,13 @@
             <a href="#contact" class="mobile-menu-link">Contact</a>
             <div class="flex items-center space-x-4 pt-4">
                  <button class="theme-toggle" aria-label="Toggle theme">
-                    <div class="theme-switch">
-                        <div class="theme-switch-thumb">
-                           <i data-lucide="sun" class="w-4 h-4 icon sun-icon"></i>
-                           <i data-lucide="moon" class="w-4 h-4 icon moon-icon"></i>
-                        </div>
-                    </div>
-                </button>
+                     <div class="theme-switch">
+                         <div class="theme-switch-thumb">
+                            <i data-lucide="sun" class="w-4 h-4 icon sun-icon"></i>
+                            <i data-lucide="moon" class="w-4 h-4 icon moon-icon"></i>
+                         </div>
+                     </div>
+                 </button>
             </div>
         </div>
     </div>
@@ -257,18 +266,35 @@
                     <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[var(--accent-primary)]"></div>
                 </div>
             </div>
-            <div id="error-message" class="hidden col-span-full text-center text-red-500 p-8 bg-red-50 rounded-lg"></div>
+            <div id="error-message" class="hidden col-span-full text-center text-red-500 p-8 bg-red-50 dark:bg-red-900/20 rounded-lg"></div>
         </section>
 
         <section id="contact" class="py-24 rounded-2xl text-center reveal-on-scroll card-style">
              <div class="container mx-auto px-6 max-w-2xl">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
                 <p class="text-md md:text-lg text-[var(--text-secondary)] mb-8">
-                    I'm always looking for new opportunities to collaborate on exciting projects. Whether you have a question, a proposal, or just want to connect, my inbox is always open. I look forward to hearing from you.
+                    Have a question or want to work together? Fill out the form below and I'll get back to you as soon as possible.
                 </p>
-                <a id="contact-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn py-3 px-8 text-lg inline-block">
-                    Contact Me
-                </a>
+                <form id="contact-form" class="mt-8 space-y-6 text-left">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-[var(--text-secondary)]">Your Name</label>
+                        <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 rounded-md border border-[var(--border-color)] bg-[var(--bg-tertiary)] focus:ring-1 focus:ring-[var(--accent-primary)] focus:border-[var(--accent-primary)] transition">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-[var(--text-secondary)]">Your Email</label>
+                        <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 rounded-md border border-[var(--border-color)] bg-[var(--bg-tertiary)] focus:ring-1 focus:ring-[var(--accent-primary)] focus:border-[var(--accent-primary)] transition">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-[var(--text-secondary)]">Message</label>
+                        <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-4 py-3 rounded-md border border-[var(--border-color)] bg-[var(--bg-tertiary)] focus:ring-1 focus:ring-[var(--accent-primary)] focus:border-[var(--accent-primary)] transition"></textarea>
+                    </div>
+                    <div class="text-center pt-2">
+                        <button type="submit" id="submit-contact-form" class="sleek-btn py-3 px-8 text-lg inline-block w-full md:w-auto">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+                <div id="form-status" class="mt-6 text-center font-medium"></div>
             </div>
         </section>
 
@@ -278,31 +304,32 @@
         <div class="container mx-auto px-6 text-center text-sm text-[var(--text-secondary)]">
             <div class="flex justify-center space-x-6 mb-4">
                  <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                    <i data-lucide="linkedin" class="w-5 h-5"></i>
-                </a>
-                <a id="github-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                    <i data-lucide="github" class="w-5 h-5"></i>
-                </a>
+                     <i data-lucide="linkedin" class="w-5 h-5"></i>
+                 </a>
+                 <a id="github-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
+                     <i data-lucide="github" class="w-5 h-5"></i>
+                 </a>
             </div>
             <p>&copy; <span id="current-year"></span> <span id="footer-user-name"></span>. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        // --- Firebase Imports ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
         // --- CONFIGURATION ---
         const GITHUB_USERNAME = "rajatkumar1011";
         const LINKEDIN_URL = "https://www.linkedin.com/in/rajatkumar7/";
-        const CONTACT_EMAIL_LINK = "https://mail.google.com/mail/u/0/?fs=1&to=rajatkumar7x@gmail.com&tf=cm";
-
+        
         // --- DOM ELEMENTS ---
         const elements = {
             userName: document.getElementById('user-name'),
             footerUserName: document.getElementById('footer-user-name'),
             userBio: document.getElementById('user-bio'),
             userAvatar: document.getElementById('user-avatar'),
-            // profileLinkNav: document.getElementById('profile-link-nav'),
-            // profileLinkMobile: document.getElementById('profile-link-mobile'),
-            contactFooterLink: document.getElementById('contact-footer-link'),
             projectsContainer: document.getElementById('projects-container'),
             loader: document.getElementById('loader'),
             errorMessage: document.getElementById('error-message'),
@@ -316,7 +343,85 @@
             githubFooterLink: document.getElementById('github-footer-link'),
             themeToggles: document.querySelectorAll('.theme-toggle'),
             projectsSubtitle: document.getElementById('projects-subtitle'),
+            contactForm: document.getElementById('contact-form'),
+            formStatus: document.getElementById('form-status'),
+            submitContactFormBtn: document.getElementById('submit-contact-form'),
         };
+
+        // --- FIREBASE ---
+        let db, auth;
+
+        async function initializeFirebase() {
+            try {
+                const firebaseConfigString = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+                if (!firebaseConfigString) {
+                    console.error("Firebase config not found.");
+                    elements.contactForm.innerHTML = `<p class="text-center text-red-500">Contact form is currently unavailable.</p>`;
+                    return;
+                }
+                const firebaseConfig = JSON.parse(firebaseConfigString);
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                const authToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                if (authToken) {
+                    await signInWithCustomToken(auth, authToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                if(elements.contactForm) {
+                   elements.contactForm.innerHTML = `<p class="text-center text-red-500">Contact form failed to load.</p>`;
+                }
+            }
+        }
+
+        async function handleContactFormSubmit(e) {
+            e.preventDefault();
+            if (!db) {
+                elements.formStatus.innerHTML = `<p class="text-red-500">Cannot send message. Database connection failed.</p>`;
+                return;
+            }
+
+            const name = elements.contactForm.name.value.trim();
+            const email = elements.contactForm.email.value.trim();
+            const message = elements.contactForm.message.value.trim();
+
+            if (!name || !email || !message) {
+                elements.formStatus.innerHTML = `<p class="text-yellow-500">Please fill out all fields.</p>`;
+                setTimeout(() => { elements.formStatus.innerHTML = '' }, 3000);
+                return;
+            }
+            
+            elements.submitContactFormBtn.disabled = true;
+            elements.submitContactFormBtn.textContent = 'Sending...';
+            elements.formStatus.innerHTML = '';
+
+            try {
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                const messagesCollection = collection(db, `/artifacts/${appId}/public/data/messages`);
+                
+                await addDoc(messagesCollection, {
+                    name,
+                    email,
+                    message,
+                    createdAt: serverTimestamp()
+                });
+
+                elements.formStatus.innerHTML = `<p class="text-green-500">Message sent successfully! Thank you.</p>`;
+                elements.contactForm.reset();
+                 setTimeout(() => { elements.formStatus.innerHTML = '' }, 5000);
+            } catch (error) {
+                console.error("Error sending message:", error);
+                elements.formStatus.innerHTML = `<p class="text-red-500">Sorry, there was an error. Please try again.</p>`;
+            } finally {
+                elements.submitContactFormBtn.disabled = false;
+                elements.submitContactFormBtn.textContent = 'Send Message';
+            }
+        }
+
 
         // --- GITHUB API ---
         async function fetchGitHubAPI(endpoint) {
@@ -354,17 +459,14 @@
                 card.style.transitionDelay = `${index * 100}ms`;
 
                 const language = repo.language ? `<span class="text-xs font-semibold bg-[var(--bg-tertiary)] text-[var(--accent-primary)] px-2 py-1 rounded-full">${repo.language}</span>` : '';
-                const deploymentUrl = repo.name.toLowerCase() === 'rajatkumar1011.github.io' ? `https://${repo.name}` : `https://rajatkumar1.me/${repo.name}`;
-                const openLink = repo.homepage || deploymentUrl;
+                const openLink = repo.homepage ? `<a href="${repo.homepage}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors" aria-label="Open project deployment"><i data-lucide="arrow-up-right" class="w-5 h-5"></i></a>` : '';
 
                 card.innerHTML = `
                     <div class="flex-grow">
                         <div class="flex justify-between items-start mb-3">
                             <h3 class="text-lg font-bold text-[var(--text-primary)] pr-4">${repo.name}</h3>
                             <div class="flex items-center space-x-3 flex-shrink-0">
-                                <a href="${openLink}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors" aria-label="Open project deployment">
-                                    <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
-                                </a>
+                                ${openLink}
                                 <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors" aria-label="View on GitHub">
                                     <i data-lucide="github" class="w-5 h-5"></i>
                                 </a>
@@ -410,27 +512,7 @@
                 };
                 type();
             };
-
-            const deleteAnimation = (onComplete) => {
-                let i = text.length;
-                element.classList.add('typing-cursor');
-                const del = () => {
-                    if (i > 0) {
-                        element.textContent = text.substring(0, --i);
-                        setTimeout(del, 30);
-                    } else {
-                        element.classList.remove('typing-cursor');
-                        if (onComplete) onComplete();
-                    }
-                };
-                del();
-            };
-
-            const scheduleNextCycle = () => {
-                setTimeout(() => deleteAnimation(() => setTimeout(() => typeAnimation(scheduleNextCycle), 500)), 15000);
-            };
-
-            setTimeout(() => typeAnimation(scheduleNextCycle), 1000);
+            typeAnimation();
         }
 
         function typeSingleLine(element, text) {
@@ -502,13 +584,14 @@
             elements.themeToggles.forEach(btn => btn.addEventListener('click', toggleTheme));
             
             let savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme !== 'light' && savedTheme !== 'dark') {
-                savedTheme = 'light';
-            }
             setTheme(savedTheme);
             
             elements.linkedinLink.href = LINKEDIN_URL;
-            elements.contactFooterLink.href = CONTACT_EMAIL_LINK;
+            
+            await initializeFirebase();
+            if(elements.contactForm) {
+               elements.contactForm.addEventListener('submit', handleContactFormSubmit);
+            }
 
             const userData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}`);
             if (userData) {
@@ -526,7 +609,7 @@
                     .filter(repo => !excludedRepos.includes(repo.name.toLowerCase()))
                     .slice(0, 6);
 
-                elements.projectsContainer.innerHTML = ''; // Clear loader before creating cards
+                elements.projectsContainer.innerHTML = ''; // Clear loader
                 createProjectCards(filteredRepos);
             }
             
@@ -538,4 +621,5 @@
     </script>
 </body>
 </html>
+
 
