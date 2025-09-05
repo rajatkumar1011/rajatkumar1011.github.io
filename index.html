@@ -58,8 +58,8 @@
             position: relative;
             display: inline-flex;
             align-items: center;
-            width: 52px;
-            height: 28px;
+            width: 60px; /* Increased size */
+            height: 34px; /* Increased size */
             background-color: var(--bg-tertiary);
             border-radius: 9999px;
             cursor: pointer;
@@ -72,8 +72,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 20px;
-            height: 20px;
+            width: 26px; /* Increased size */
+            height: 26px; /* Increased size */
             background-color: white;
             border-radius: 50%;
             left: 4px;
@@ -82,7 +82,7 @@
         }
 
         [data-theme='dark'] .theme-switch-thumb {
-            transform: translateX(24px);
+            transform: translateX(26px); /* Adjusted for new size */
             background-color: #334155;
         }
 
@@ -190,15 +190,15 @@
 
     <!-- Header & Navbar -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <nav class="flex justify-between items-center px-6 py-3 md:grid md:grid-cols-3">
+        <nav class="flex justify-between items-center px-6 py-3 md:grid md:grid-cols-3 md:items-center">
             <div class="md:justify-self-start">
                 <a href="." class="text-xl font-bold uppercase tracking-widest">PORTFOLIO</a>
             </div>
             
             <div class="hidden md:flex items-center justify-center space-x-8 md:justify-self-center">
-                <a href="#hero" class="transition-colors hover:text-[var(--accent-secondary)] text-sm font-medium">About</a>
-                <a href="#projects" class="transition-colors hover:text-[var(--accent-secondary)] text-sm font-medium">Projects</a>
-                <a href="#contact" class="transition-colors hover:text-[var(--accent-secondary)] text-sm font-medium">Contact</a>
+                <a href="#hero" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">About</a>
+                <a href="#projects" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">Projects</a>
+                <a href="#contact" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">Contact</a>
             </div>
 
             <div class="md:justify-self-end">
@@ -206,8 +206,8 @@
                     <button class="theme-toggle" aria-label="Toggle theme">
                         <div class="theme-switch">
                            <div class="theme-switch-thumb">
-                                <i data-lucide="sun" class="w-4 h-4 icon sun-icon"></i>
-                                <i data-lucide="moon" class="w-4 h-4 icon moon-icon"></i>
+                                <i data-lucide="sun" class="w-5 h-5 icon sun-icon"></i>
+                                <i data-lucide="moon" class="w-5 h-5 icon moon-icon"></i>
                            </div>
                         </div>
                     </button>
@@ -232,8 +232,8 @@
                  <button class="theme-toggle" aria-label="Toggle theme">
                      <div class="theme-switch">
                          <div class="theme-switch-thumb">
-                            <i data-lucide="sun" class="w-4 h-4 icon sun-icon"></i>
-                            <i data-lucide="moon" class="w-4 h-4 icon moon-icon"></i>
+                            <i data-lucide="sun" class="w-5 h-5 icon sun-icon"></i>
+                            <i data-lucide="moon" class="w-5 h-5 icon moon-icon"></i>
                          </div>
                      </div>
                  </button>
@@ -331,11 +331,21 @@
         async function fetchGitHubAPI(endpoint) {
             try {
                 const response = await fetch(`https://api.github.com/${endpoint}`);
-                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        console.warn(`GitHub API rate limit hit for endpoint: ${endpoint}. The portfolio will display fallback content. This is expected behavior when making many unauthenticated requests.`);
+                    } else {
+                        console.error(`GitHub API returned an error for ${endpoint}: ${response.status} ${response.statusText}`);
+                    }
+                    return null; // Signal failure
+                }
+
                 return await response.json();
+
             } catch (error) {
-                console.error(`Failed to fetch GitHub data from ${endpoint}:`, error);
-                displayError(`Could not fetch data. Please check the console.`);
+                // This catches network-level errors (e.g., user is offline)
+                console.error(`Network error while fetching GitHub data from ${endpoint}:`, error);
                 return null;
             }
         }
@@ -349,6 +359,10 @@
             elements.userAvatar.src = userData.avatar_url;
             elements.userAvatar.alt = `${name}'s Avatar`;
             elements.githubFooterLink.href = userData.html_url;
+            // Add a fallback for the avatar image
+            elements.userAvatar.onerror = () => {
+                elements.userAvatar.src = 'https://placehold.co/128x128/e5e7eb/4b5563?text=Avatar';
+            };
         }
 
         function createProjectCards(repos) {
@@ -391,12 +405,6 @@
                 `;
                 elements.projectsContainer.appendChild(card);
             });
-        }
-
-        function displayError(message) {
-            elements.loader.style.display = 'none';
-            elements.errorMessage.textContent = `Error: ${message}`;
-            elements.errorMessage.classList.remove('hidden');
         }
 
         // --- TYPEWRITER EFFECT ---
@@ -499,19 +507,31 @@
                 populateUserInfo(userData);
                 setupTypewriterCycle(elements.userBio, userData.bio || 'A passionate developer creating amazing things.');
             } else {
-                elements.userName.textContent = "Developer";
+                // Fallback if user data fetch fails
+                populateUserInfo({
+                    name: "Rajat Kumar", // Provide a default name
+                    login: GITHUB_USERNAME,
+                    avatar_url: `https://github.com/${GITHUB_USERNAME}.png`,
+                    html_url: `https://github.com/${GITHUB_USERNAME}`
+                });
                 setupTypewriterCycle(elements.userBio, 'A passionate developer creating amazing things.');
             }
 
             const reposData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=8`);
+            elements.loader.style.display = 'none'; // Hide loader after fetch attempt
             if (reposData) {
                 const excludedRepos = ['rajatkumar1011.github.io', 'python-gym'];
                 const filteredRepos = reposData
                     .filter(repo => !excludedRepos.includes(repo.name.toLowerCase()))
                     .slice(0, 6);
 
-                elements.projectsContainer.innerHTML = ''; // Clear loader
+                elements.projectsContainer.innerHTML = ''; // Clear for new cards
                 createProjectCards(filteredRepos);
+            } else {
+                // Fallback if repos fetch fails
+                elements.errorMessage.classList.remove('hidden');
+                elements.errorMessage.textContent = 'Could not load projects from GitHub. This may be due to API rate limiting. Please try again later.';
+                elements.projectsContainer.innerHTML = ''; // Ensure container is empty
             }
             
             lucide.createIcons();
