@@ -89,6 +89,50 @@
         .theme-btn.active {
             color: var(--accent-primary);
         }
+
+        #user-bio {
+            min-height: 1.75rem; /* Prevents layout shift for text-lg/text-xl */
+        }
+        .typing-cursor::after {
+            content: '|';
+            display: inline-block;
+            animation: blink 1s step-end infinite;
+            color: var(--text-secondary);
+            margin-left: 0.125rem;
+        }
+
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        #explore-work-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            background-color: transparent;
+        }
+
+        #explore-work-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #explore-work-btn:hover {
+            color: var(--bg-primary);
+            background-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-primary);
+        }
+
+        [data-theme='glow'] #explore-work-btn {
+             box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        [data-theme='glow'] #explore-work-btn:hover {
+            box-shadow: 0 0 25px var(--glow-color), 0 0 40px var(--glow-color) inset;
+        }
     </style>
 </head>
 <body>
@@ -96,8 +140,9 @@
     <!-- Header & Navbar -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold">Portfolio</a>
+            <a href="." class="text-2xl font-bold">Portfolio</a>
             <div class="hidden md:flex space-x-8 items-center text-[var(--text-secondary)]">
+                <a href="#hero" class="hover:text-[var(--accent-secondary)] transition-colors">About</a>
                 <a href="#projects" class="hover:text-[var(--accent-secondary)] transition-colors">Projects</a>
                 <a href="#contact" class="hover:text-[var(--accent-secondary)] transition-colors">Contact</a>
                  <div class="flex items-center space-x-1 border-l border-[var(--border-color)] pl-6">
@@ -123,6 +168,7 @@
             </button>
         </div>
         <div class="flex flex-col items-center justify-center space-y-8 h-full text-2xl">
+            <a href="#hero" class="mobile-menu-link hover:text-[var(--accent-secondary)] transition-colors">About</a>
             <a href="#projects" class="mobile-menu-link hover:text-[var(--accent-secondary)] transition-colors">Projects</a>
             <a href="#contact" class="mobile-menu-link hover:text-[var(--accent-secondary)] transition-colors">Contact</a>
             <div class="flex items-center space-x-4 pt-4">
@@ -145,7 +191,7 @@
                 Hi, I'm <span id="user-name" class="text-[var(--accent-primary)] glow-text"></span>
             </h1>
             <p id="user-bio" class="text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8"></p>
-            <a href="#projects" class="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">
+            <a id="explore-work-btn" href="#projects" class="inline-block font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">
                 Explore My Work
             </a>
         </section>
@@ -220,6 +266,7 @@
             linkedinLink: document.getElementById('linkedin-link'),
             githubFooterLink: document.getElementById('github-footer-link'),
             themeButtons: document.querySelectorAll('.theme-btn'),
+            exploreWorkBtn: document.getElementById('explore-work-btn'),
         };
 
         // --- GITHUB API ---
@@ -243,7 +290,7 @@
             const name = userData.name || userData.login;
             elements.userName.textContent = name;
             elements.footerUserName.textContent = name;
-            elements.userBio.textContent = userData.bio || 'A passionate developer creating amazing things.';
+            // Bio is now handled by the typewriter effect
             elements.userAvatar.src = userData.avatar_url;
             elements.userAvatar.alt = `${name}'s Avatar`;
             elements.profileLinkNav.href = userData.html_url;
@@ -316,6 +363,56 @@
             elements.errorMessage.classList.remove('hidden');
         }
 
+        // --- TYPEWRITER EFFECT ---
+        function setupTypewriterCycle(element, text) {
+            const typeAnimation = () => {
+                element.textContent = '';
+                element.classList.add('typing-cursor');
+                let i = 0;
+                
+                function typeChar() {
+                    if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeChar, 55); // Typing speed
+                    }
+                }
+                typeChar();
+            };
+            
+            const deleteAnimation = (onComplete) => {
+                let i = element.textContent.length;
+                if (i === 0) {
+                    onComplete();
+                    return;
+                }
+                function deleteChar() {
+                    if (i > 0) {
+                        element.textContent = element.textContent.substring(0, i - 1);
+                        i--;
+                        setTimeout(deleteChar, 30); // Deleting speed
+                    } else {
+                        onComplete();
+                    }
+                }
+                deleteChar();
+            };
+
+            const runSequence = () => {
+                deleteAnimation(() => {
+                    // Short pause after deleting before re-typing
+                    setTimeout(typeAnimation, 500); 
+                });
+            };
+            
+            // Initial 2-second delay
+            setTimeout(() => {
+                typeAnimation(); 
+                // Cycle every 15 seconds, starting the delete-then-type sequence
+                setInterval(runSequence, 15000); 
+            }, 2000);
+        }
+
         // --- EVENT HANDLERS & HELPERS ---
         function handleScroll() {
             if (window.scrollY > 50) {
@@ -356,11 +453,21 @@
             elements.mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
             
             setupThemeSwitcher();
+            
+            // Delayed appearance for Explore button
+            setTimeout(() => {
+                if (elements.exploreWorkBtn) {
+                    elements.exploreWorkBtn.classList.add('visible');
+                }
+            }, 5000);
 
             // Fetch data and render
             const userData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}`);
             if (userData) {
                 populateUserInfo(userData);
+                const bioText = userData.bio || 'A passionate developer creating amazing things.';
+                setupTypewriterCycle(elements.userBio, bioText);
+                
                 const repos = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=6`);
                 if (repos) {
                     createProjectCards(repos);
@@ -374,6 +481,4 @@
     </script>
 </body>
 </html>
-
-
 
