@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF--8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> PORTFOLIO </title>
+    <title>PORTFOLIO</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧑‍💻</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
@@ -23,19 +23,25 @@
             --header-bg: rgba(253, 253, 255, 0.8);
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-            --backdrop-filter: blur(10px);
+            --backdrop-filter: blur(12px);
+            --gradient-start: #4f46e5;
+            --gradient-end: #a855f7;
+            --glow-color: rgba(79, 70, 229, 0.4);
         }
 
         [data-theme='dark'] {
-            --bg-primary: #020617;
-            --bg-secondary: #0f172a;
-            --bg-tertiary: #1e293b;
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #171717;
             --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: #334155;
+            --text-secondary: #a1a1aa;
+            --border-color: #262626;
             --accent-primary: #818cf8;
-            --accent-secondary: #a78bfa;
-            --header-bg: rgba(2, 6, 23, 0.7);
+            --accent-secondary: #c084fc;
+            --header-bg: rgba(0, 0, 0, 0.6);
+            --gradient-start: #818cf8;
+            --gradient-end: #f472b6;
+            --glow-color: rgba(129, 140, 248, 0.3);
         }
 
         body {
@@ -43,6 +49,62 @@
             background-color: var(--bg-primary);
             color: var(--text-primary);
             transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Background Glows */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        [data-theme='dark'] body::before, [data-theme='dark'] body::after {
+             opacity: 0.1;
+        }
+
+        body::before {
+            background: radial-gradient(circle, var(--accent-primary), transparent 60%);
+            top: -10%;
+            left: -10%;
+        }
+
+        body::after {
+            background: radial-gradient(circle, var(--accent-secondary), transparent 60%);
+            bottom: -10%;
+            right: -10%;
+            animation: move-glow 15s infinite alternate ease-in-out;
+        }
+        
+        @keyframes move-glow {
+            from { transform: translate(0, 0) rotate(0deg); }
+            to { transform: translate(100px, 50px) rotate(30deg); }
+        }
+
+        /* Custom Cursor Glow */
+        #cursor-glow {
+            display: none; /* Hidden by default (light mode) */
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 50%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1; /* Places glow behind content */
+            mix-blend-mode: soft-light;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        [data-theme='dark'] #cursor-glow {
+            display: block;
         }
 
         .header-scrolled {
@@ -50,21 +112,19 @@
             backdrop-filter: var(--backdrop-filter);
             -webkit-backdrop-filter: var(--backdrop-filter);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
         }
         
-        /* Sleek Theme Toggle Switch */
         .theme-switch {
             position: relative;
             display: inline-flex;
             align-items: center;
-            width: 60px; /* Increased size */
-            height: 34px; /* Increased size */
+            width: 60px;
+            height: 34px;
             background-color: var(--bg-tertiary);
             border-radius: 9999px;
-            cursor: pointer;
             padding: 4px;
             transition: background-color 0.2s ease;
+            border: 1px solid var(--border-color);
         }
 
         .theme-switch-thumb {
@@ -72,8 +132,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 26px; /* Increased size */
-            height: 26px; /* Increased size */
+            width: 26px;
+            height: 26px;
             background-color: white;
             border-radius: 50%;
             left: 4px;
@@ -82,76 +142,53 @@
         }
 
         [data-theme='dark'] .theme-switch-thumb {
-            transform: translateX(26px); /* Adjusted for new size */
-            background-color: #334155;
+            transform: translateX(26px);
+            background: linear-gradient(135deg, #334155, #1e293b);
+        }
+        [data-theme='light'] .theme-switch-thumb {
+            background: linear-gradient(135deg, #ffffff, #e2e8f0);
         }
 
-        .theme-switch-thumb .icon {
-            position: absolute;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
 
-        .theme-switch-thumb .sun-icon {
-            opacity: 1;
-            transform: rotate(0deg) scale(1);
-            color: #f59e0b;
+        .theme-switch-thumb .icon { position: absolute; transition: opacity 0.2s ease, transform 0.2s ease; }
+        .theme-switch-thumb .sun-icon { opacity: 1; transform: rotate(0deg) scale(1); color: #f59e0b; }
+        .theme-switch-thumb .moon-icon { opacity: 0; transform: rotate(-90deg) scale(0); color: #a78bfa; }
+        [data-theme='dark'] .theme-switch-thumb .sun-icon { opacity: 0; transform: rotate(90deg) scale(0); }
+        [data-theme='dark'] .theme-switch-thumb .moon-icon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+        #user-name {
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
         }
         
-        .theme-switch-thumb .moon-icon {
-            opacity: 0;
-            transform: rotate(-90deg) scale(0);
-            color: #a78bfa;
-        }
-
-        [data-theme='dark'] .theme-switch-thumb .sun-icon {
-            opacity: 0;
-            transform: rotate(90deg) scale(0);
-        }
-
-        [data-theme='dark'] .theme-switch-thumb .moon-icon {
-            opacity: 1;
-            transform: rotate(0deg) scale(1);
-        }
-
-
-        .card-style {
-            background-color: var(--bg-secondary);
-            border-color: var(--border-color);
-            backdrop-filter: var(--backdrop-filter);
-            -webkit-backdrop-filter: var(--backdrop-filter);
-        }
-
-        #user-bio {
-            min-height: 1.75rem; 
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
+        #user-bio { min-height: 1.75rem; overflow-wrap: break-word; word-wrap: break-word; }
 
         .typing-cursor::after {
             content: '|';
             animation: blink 1s step-end infinite;
             color: var(--accent-secondary);
             margin-left: 0.125rem;
+            font-weight: 200;
         }
         @keyframes blink { 50% { opacity: 0; } }
 
         .sleek-btn {
-            background-color: var(--accent-primary);
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            background-size: 200% auto;
             color: #ffffff;
             font-weight: 600;
             border-radius: 9999px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-            box-shadow: 0 0 0 0 rgba(0,0,0,0); /* Placeholder for transition */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-position 0.4s ease;
+            box-shadow: 0 0 0 0 rgba(0,0,0,0);
         }
         
-        [data-theme='light'] .sleek-btn {
-            color: var(--bg-primary);
-        }
-
         .sleek-btn:hover {
-            transform: translateY(-2px);
-            background-color: var(--accent-secondary);
-            box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--accent-primary) 40%, transparent);
+            transform: translateY(-3px) scale(1.02);
+            background-position: right center;
+            box-shadow: 0 12px 25px -8px color-mix(in srgb, var(--gradient-start) 40%, transparent);
         }
         
         .sleek-btn:disabled {
@@ -161,10 +198,41 @@
             box-shadow: none;
         }
 
+        .card-style {
+            background-color: color-mix(in srgb, var(--bg-secondary) 80%, transparent);
+            border: 1px solid var(--border-color);
+            backdrop-filter: var(--backdrop-filter);
+            -webkit-backdrop-filter: var(--backdrop-filter);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Glossy hover effect for cards */
+        .card-style::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), color-mix(in srgb, var(--glow-color) 40%, transparent), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 0;
+        }
+        
+        .card-style:hover::before {
+            opacity: 1;
+        }
+        .card-style > * {
+            position: relative;
+            z-index: 1;
+        }
+
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .reveal-on-scroll.is-visible {
             opacity: 1;
@@ -175,27 +243,51 @@
         .reveal-on-scroll:nth-child(4) { transition-delay: 0.3s; }
         
         .avatar-ring {
-            box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 6px var(--accent-primary);
-            animation: pulse-ring 2s ease-in-out infinite;
+            position:relative;
+        }
+        
+        .avatar-ring::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 9999px;
+            background: conic-gradient(from var(--angle), transparent 30%, var(--gradient-start), var(--gradient-end), transparent 70%);
+            animation: spin 4s linear infinite;
+            z-index: 0;
         }
 
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 6px var(--accent-primary); }
-            50% { box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 12px color-mix(in srgb, var(--accent-primary) 30%, transparent); }
-            100% { box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 6px var(--accent-primary); }
+        @property --angle {
+          syntax: '<angle>';
+          initial-value: 0deg;
+          inherits: false;
         }
+
+        @keyframes spin {
+          to {
+            --angle: 360deg;
+          }
+        }
+        
+        #user-avatar {
+            box-shadow: 0 0 0 4px var(--bg-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
     </style>
 </head>
 <body class="antialiased">
+    
+    <div id="cursor-glow"></div>
 
     <!-- Header & Navbar -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <nav class="relative flex justify-between items-center px-6 py-3">
+        <nav class="container mx-auto relative flex justify-between items-center px-6 py-4">
             <div>
-                <a href="." class="text-xl font-bold uppercase tracking-widest">PORTFOLIO</a>
+                <a href="." class="text-xl font-bold uppercase tracking-widest">Portfolio</a>
             </div>
             
-            <div class="hidden md:flex absolute top-1/2 left-1/2 [transform:translate(calc(-50%+8px),-50%)] items-center justify-center space-x-8">
+            <div class="hidden md:flex absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] items-center justify-center space-x-8">
                 <a href="#hero" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">About</a>
                 <a href="#projects" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">Projects</a>
                 <a href="#contact" class="transition-colors hover:text-[var(--accent-secondary)] text-base font-medium">Contact</a>
@@ -229,14 +321,14 @@
             <a href="#projects" class="mobile-menu-link">Projects</a>
             <a href="#contact" class="mobile-menu-link">Contact</a>
             <div class="flex items-center space-x-4 pt-4">
-                 <button class="theme-toggle" aria-label="Toggle theme">
+               <button class="theme-toggle" aria-label="Toggle theme">
                      <div class="theme-switch">
                          <div class="theme-switch-thumb">
-                            <i data-lucide="sun" class="w-5 h-5 icon sun-icon"></i>
-                            <i data-lucide="moon" class="w-5 h-5 icon moon-icon"></i>
+                             <i data-lucide="sun" class="w-5 h-5 icon sun-icon"></i>
+                             <i data-lucide="moon" class="w-5 h-5 icon moon-icon"></i>
                          </div>
                      </div>
-                 </button>
+               </button>
             </div>
         </div>
     </div>
@@ -244,11 +336,11 @@
     <main class="container mx-auto px-6 pt-32 md:pt-48">
 
         <section id="hero" class="text-center max-w-4xl mx-auto">
-            <div class="relative w-32 h-32 md:w-36 md:h-36 rounded-full mx-auto mb-6 avatar-ring">
-                <img id="user-avatar" src="https://placehold.co/128x128/e5e7eb/4b5563?text=Avatar" alt="User Avatar" class="w-full h-full rounded-full object-cover">
+            <div class="relative w-32 h-32 md:w-36 md:h-36 rounded-full mx-auto mb-8 avatar-ring">
+                <img id="user-avatar" src="https://placehold.co/144x144/e5e7eb/4b5563?text=Avatar" alt="User Avatar" class="w-full h-full rounded-full object-cover">
             </div>
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 reveal-on-scroll">
-                Hi, I'm <span id="user-name" class="text-[var(--accent-primary)]"></span>
+            <h1 class="text-4xl md:text-6xl font-black leading-tight mb-4 reveal-on-scroll">
+                Hi, I'm <span id="user-name"></span>
             </h1>
             <p id="user-bio" class="text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8 reveal-on-scroll"></p>
             <div class="flex justify-center items-center space-x-4 reveal-on-scroll">
@@ -259,7 +351,7 @@
         </section>
 
         <section id="projects" class="py-24 md:py-32">
-            <div class="text-center max-w-2xl mx-auto mb-12">
+            <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 reveal-on-scroll">My Projects</h2>
                 <p id="projects-subtitle" class="text-md md:text-lg text-[var(--text-secondary)] reveal-on-scroll"></p>
             </div>
@@ -289,10 +381,10 @@
         <div class="container mx-auto px-6 text-center text-sm text-[var(--text-secondary)]">
             <div class="flex justify-center space-x-6 mb-4">
                  <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                     <i data-lucide="linkedin" class="w-5 h-5"></i>
+                       <i data-lucide="linkedin" class="w-5 h-5"></i>
                  </a>
                  <a id="github-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                     <i data-lucide="github" class="w-5 h-5"></i>
+                       <i data-lucide="github" class="w-5 h-5"></i>
                  </a>
             </div>
             <p>&copy; <span id="current-year"></span> <span id="footer-user-name"></span>. All Rights Reserved.</p>
@@ -325,6 +417,7 @@
             themeToggles: document.querySelectorAll('.theme-toggle'),
             projectsSubtitle: document.getElementById('projects-subtitle'),
             contactFooterLink: document.getElementById('contact-footer-link'),
+            cursorGlow: document.getElementById('cursor-glow'),
         };
 
         // --- GITHUB API ---
@@ -334,18 +427,15 @@
                 
                 if (!response.ok) {
                     if (response.status === 403) {
-                        console.warn(`GitHub API rate limit hit for endpoint: ${endpoint}. The portfolio will display fallback content. This is expected behavior when making many unauthenticated requests.`);
+                        console.warn(`GitHub API rate limit hit for endpoint: ${endpoint}.`);
                     } else {
-                        console.error(`GitHub API returned an error for ${endpoint}: ${response.status} ${response.statusText}`);
+                        console.error(`GitHub API error for ${endpoint}: ${response.status}`);
                     }
-                    return null; // Signal failure
+                    return null;
                 }
-
                 return await response.json();
-
             } catch (error) {
-                // This catches network-level errors (e.g., user is offline)
-                console.error(`Network error while fetching GitHub data from ${endpoint}:`, error);
+                console.error(`Network error fetching from ${endpoint}:`, error);
                 return null;
             }
         }
@@ -359,9 +449,8 @@
             elements.userAvatar.src = userData.avatar_url;
             elements.userAvatar.alt = `${name}'s Avatar`;
             elements.githubFooterLink.href = userData.html_url;
-            // Add a fallback for the avatar image
             elements.userAvatar.onerror = () => {
-                elements.userAvatar.src = 'https://placehold.co/128x128/e5e7eb/4b5563?text=Avatar';
+                elements.userAvatar.src = 'https://placehold.co/144x144/e5e7eb/4b5563?text=Avatar';
             };
         }
 
@@ -373,10 +462,10 @@
 
             repos.forEach((repo, index) => {
                 const card = document.createElement('div');
-                card.className = 'card-style p-6 rounded-lg border flex flex-col transition-transform duration-300 hover:-translate-y-1 reveal-on-scroll';
+                card.className = 'card-style p-6 rounded-2xl flex flex-col transition-transform duration-300 hover:-translate-y-2 reveal-on-scroll';
                 card.style.transitionDelay = `${index * 100}ms`;
 
-                const language = repo.language ? `<span class="text-xs font-semibold bg-[var(--bg-tertiary)] text-[var(--accent-primary)] px-2 py-1 rounded-full">${repo.language}</span>` : '';
+                const language = repo.language ? `<span class="text-xs font-semibold bg-[var(--bg-tertiary)] border border-[var(--border-color)] text-[var(--accent-primary)] px-2 py-1 rounded-full">${repo.language}</span>` : '';
                 const deploymentUrl = repo.homepage || `https://rajatkumar1.me/${repo.name}`;
                 const openLink = `<a href="${deploymentUrl}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors" aria-label="Open project deployment"><i data-lucide="external-link" class="w-5 h-5"></i></a>`;
 
@@ -405,31 +494,21 @@
                 `;
                 elements.projectsContainer.appendChild(card);
             });
+            // Card hover glow effect
+            document.querySelectorAll('.card-style').forEach(card => {
+                card.onmousemove = e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                };
+            });
         }
 
         // --- TYPEWRITER EFFECT ---
-        function setupTypewriterCycle(element, text) {
-            if (!element) return;
-            const typeAnimation = (onComplete) => {
-                let i = 0;
-                element.textContent = '';
-                element.classList.add('typing-cursor');
-                const type = () => {
-                    if (i < text.length) {
-                        element.textContent += text.charAt(i++);
-                        setTimeout(type, 50);
-                    } else {
-                        element.classList.remove('typing-cursor');
-                        if (onComplete) onComplete();
-                    }
-                };
-                type();
-            };
-            typeAnimation();
-        }
-
         function typeSingleLine(element, text) {
-            if (element.dataset.typed) return; // Prevent re-typing
+            if (element.dataset.typed) return;
             element.dataset.typed = 'true';
             element.textContent = '';
             element.classList.add('typing-cursor');
@@ -437,7 +516,7 @@
             function typeChar() {
                 if (i < text.length) {
                     element.textContent += text.charAt(i++);
-                    setTimeout(typeChar, 50);
+                    setTimeout(typeChar, 40);
                 } else {
                     element.classList.remove('typing-cursor');
                 }
@@ -452,7 +531,7 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
                         if (entry.target.id === 'projects-subtitle') {
-                            typeSingleLine(entry.target, "Here are a few projects I've worked on recently.");
+                            typeSingleLine(entry.target, "A selection of projects that showcase my skills and passion for development.");
                         }
                         observer.unobserve(entry.target);
                     }
@@ -464,11 +543,7 @@
 
         // --- EVENT HANDLERS & HELPERS ---
         function handleScroll() {
-            if (window.scrollY > 50) {
-                elements.header.classList.add('header-scrolled');
-            } else {
-                elements.header.classList.remove('header-scrolled');
-            }
+            elements.header.classList.toggle('header-scrolled', window.scrollY > 50);
         }
         
         function toggleMobileMenu() {
@@ -482,8 +557,26 @@
 
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            setTheme(newTheme);
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        }
+
+        // --- CURSOR GLOW ---
+        function setupCursorGlow() {
+            window.addEventListener('mousemove', (e) => {
+                elements.cursorGlow.style.left = `${e.clientX}px`;
+                elements.cursorGlow.style.top = `${e.clientY}px`;
+            });
+            
+            document.querySelectorAll('a, button, .theme-switch').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    elements.cursorGlow.style.width = '600px';
+                    elements.cursorGlow.style.height = '600px';
+                });
+                el.addEventListener('mouseleave', () => {
+                     elements.cursorGlow.style.width = '500px';
+                    elements.cursorGlow.style.height = '500px';
+                });
+            });
         }
 
         // --- INITIALIZATION ---
@@ -493,11 +586,9 @@
             elements.mobileMenuButton.addEventListener('click', toggleMobileMenu);
             elements.closeMobileMenuButton.addEventListener('click', toggleMobileMenu);
             elements.mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
-            
             elements.themeToggles.forEach(btn => btn.addEventListener('click', toggleTheme));
             
-            let savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
+            setTheme(localStorage.getItem('theme') || 'dark'); // Default to dark mode
             
             elements.linkedinLink.href = LINKEDIN_URL;
             elements.contactFooterLink.href = CONTACT_EMAIL_LINK;
@@ -505,42 +596,40 @@
             const userData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}`);
             if (userData) {
                 populateUserInfo(userData);
-                setupTypewriterCycle(elements.userBio, userData.bio || 'A passionate developer creating amazing things.');
+                typeSingleLine(elements.userBio, userData.bio || 'A passionate developer creating amazing things.');
             } else {
-                // Fallback if user data fetch fails
                 populateUserInfo({
-                    name: "Rajat Kumar", // Provide a default name
+                    name: "Rajat Kumar",
                     login: GITHUB_USERNAME,
                     avatar_url: `https://github.com/${GITHUB_USERNAME}.png`,
                     html_url: `https://github.com/${GITHUB_USERNAME}`
                 });
-                setupTypewriterCycle(elements.userBio, 'A passionate developer creating amazing things.');
+                typeSingleLine(elements.userBio, 'A passionate developer creating amazing things.');
             }
 
             const reposData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=8`);
-            elements.loader.style.display = 'none'; // Hide loader after fetch attempt
+            elements.loader.style.display = 'none';
             if (reposData) {
                 const excludedRepos = ['rajatkumar1011.github.io', 'python-gym'];
                 const filteredRepos = reposData
-                    .filter(repo => !excludedRepos.includes(repo.name.toLowerCase()))
+                    .filter(repo => !repo.fork && !excludedRepos.includes(repo.name.toLowerCase()))
                     .slice(0, 6);
 
-                elements.projectsContainer.innerHTML = ''; // Clear for new cards
+                elements.projectsContainer.innerHTML = '';
                 createProjectCards(filteredRepos);
             } else {
-                // Fallback if repos fetch fails
                 elements.errorMessage.classList.remove('hidden');
-                elements.errorMessage.textContent = 'Could not load projects from GitHub. This may be due to API rate limiting. Please try again later.';
-                elements.projectsContainer.innerHTML = ''; // Ensure container is empty
+                elements.errorMessage.textContent = 'Could not load projects from GitHub due to API rate limits. Please try again later.';
+                elements.projectsContainer.innerHTML = '';
             }
             
             lucide.createIcons();
             setupScrollAnimations();
+            setupCursorGlow();
         }
 
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
-
 
