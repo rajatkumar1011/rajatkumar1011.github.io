@@ -607,13 +607,13 @@
                 typeSingleLine(elements.userBio, 'A passionate developer creating amazing things.');
             }
 
-            const reposData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=8`);
+            const reposData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=12`);
             elements.loader.style.display = 'none';
             if (reposData) {
                 const excludedRepos = ['rajatkumar1011.github.io', 'python-gym'];
                 const filteredRepos = reposData
                     .filter(repo => !repo.fork && !excludedRepos.includes(repo.name.toLowerCase()))
-                    .slice(0, 6);
+                    .slice(0, 9);
 
                 elements.projectsContainer.innerHTML = '';
                 createProjectCards(filteredRepos);
