@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF--8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PORTFOLIO</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧑‍💻</text></svg>">
@@ -280,7 +280,6 @@
     
     <div id="cursor-glow"></div>
 
-    <!-- Header & Navbar -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <nav class="container mx-auto relative flex justify-between items-center px-6 py-4">
             <div>
@@ -322,12 +321,12 @@
             <a href="#contact" class="mobile-menu-link">Contact</a>
             <div class="flex items-center space-x-4 pt-4">
                <button class="theme-toggle" aria-label="Toggle theme">
-                     <div class="theme-switch">
-                         <div class="theme-switch-thumb">
-                             <i data-lucide="sun" class="w-5 h-5 icon sun-icon"></i>
-                             <i data-lucide="moon" class="w-5 h-5 icon moon-icon"></i>
-                         </div>
-                     </div>
+                   <div class="theme-switch">
+                       <div class="theme-switch-thumb">
+                           <i data-lucide="sun" class="w-5 h-5 icon sun-icon"></i>
+                           <i data-lucide="moon" class="w-5 h-5 icon moon-icon"></i>
+                       </div>
+                   </div>
                </button>
             </div>
         </div>
@@ -381,10 +380,10 @@
         <div class="container mx-auto px-6 text-center text-sm text-[var(--text-secondary)]">
             <div class="flex justify-center space-x-6 mb-4">
                  <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                       <i data-lucide="linkedin" class="w-5 h-5"></i>
+                      <i data-lucide="linkedin" class="w-5 h-5"></i>
                  </a>
                  <a id="github-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                       <i data-lucide="github" class="w-5 h-5"></i>
+                      <i data-lucide="github" class="w-5 h-5"></i>
                  </a>
             </div>
             <p>&copy; <span id="current-year"></span> <span id="footer-user-name"></span>. All Rights Reserved.</p>
@@ -396,6 +395,25 @@
         const GITHUB_USERNAME = "rajatkumar1011";
         const LINKEDIN_URL = "https://www.linkedin.com/in/rajatkumar7/";
         const CONTACT_EMAIL_LINK = "https://mail.google.com/mail/u/0/?fs=1&to=contact@rajatkumar1.me&tf=cm";
+
+        // --- UPDATE: Define your list of "My Projects" here ---
+        // Add the exact names of your GitHub repositories to this list.
+        // They will be displayed in this exact order.
+        const MY_PROJECTS = [
+            "pdf2word",
+            "Kanban",
+            "dino",
+            "refresh",
+            "tetris",
+            "minecraft",
+            "OptimalCalc",
+            "wordcounter",
+            "QRCode",
+            "tictactoe",
+            "TO-DO",
+            "SnakeGame"
+            // add more projects later...
+        ];
         
         // --- DOM ELEMENTS ---
         const elements = {
@@ -428,6 +446,8 @@
                 if (!response.ok) {
                     if (response.status === 403) {
                         console.warn(`GitHub API rate limit hit for endpoint: ${endpoint}.`);
+                    } else if (response.status === 404) {
+                         console.warn(`Repository not found for endpoint: ${endpoint}. Check the name in MY_PROJECTS.`);
                     } else {
                         console.error(`GitHub API error for ${endpoint}: ${response.status}`);
                     }
@@ -607,21 +627,43 @@
                 typeSingleLine(elements.userBio, 'A passionate developer creating amazing things.');
             }
 
-            const reposData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=12`);
-            elements.loader.style.display = 'none';
-            if (reposData) {
-                const excludedRepos = ['rajatkumar1011.github.io', 'python-gym'];
-                const filteredRepos = reposData
-                    .filter(repo => !repo.fork && !excludedRepos.includes(repo.name.toLowerCase()))
-                    .slice(0, 9);
+            // --- UPDATED: Fetch only projects from MY_PROJECTS list ---
+            try {
+                // 1. Create an array of promises, one for each repo
+                const repoPromises = MY_PROJECTS.map(repoName => 
+                    fetchGitHubAPI(`repos/${GITHUB_USERNAME}/${repoName.trim()}`)
+                );
+                
+                // 2. Wait for all fetches to complete
+                const resolvedRepos = await Promise.all(repoPromises);
 
-                elements.projectsContainer.innerHTML = '';
-                createProjectCards(filteredRepos);
-            } else {
+                // 3. Filter out any that failed (returned null) or are forks
+                const validRepos = resolvedRepos.filter(repo => repo && !repo.fork);
+
+                // 4. Sort the valid repos to match the order in MY_PROJECTS
+                const reposInOrder = MY_PROJECTS.map(pinnedName => {
+                    return validRepos.find(repo => repo.name.toLowerCase() === pinnedName.toLowerCase());
+                }).filter(Boolean); // Removes 'undefined' if a repo failed to fetch
+
+                elements.loader.style.display = 'none';
+
+                if (reposInOrder.length > 0) {
+                    elements.projectsContainer.innerHTML = '';
+                    createProjectCards(reposInOrder);
+                } else {
+                    elements.errorMessage.classList.remove('hidden');
+                    elements.errorMessage.textContent = 'Could not load specified projects. Please check the repository names in the "MY_PROJECTS" list in the script.';
+                    elements.projectsContainer.innerHTML = '';
+                }
+
+            } catch (error) {
+                console.error("Error fetching specified repositories:", error);
+                elements.loader.style.display = 'none';
                 elements.errorMessage.classList.remove('hidden');
-                elements.errorMessage.textContent = 'Could not load projects from GitHub due to API rate limits. Please try again later.';
+                elements.errorMessage.textContent = 'An error occurred while loading projects. Please try again later.';
                 elements.projectsContainer.innerHTML = '';
             }
+            // --- END OF UPDATE ---
             
             lucide.createIcons();
             setupScrollAnimations();
@@ -632,4 +674,3 @@
     </script>
 </body>
 </html>
-
