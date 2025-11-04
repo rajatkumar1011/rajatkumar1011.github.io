@@ -18,15 +18,15 @@
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --border-color: #e2e8f0;
-            --accent-primary: #4f46e5;
-            --accent-secondary: #6366f1;
+            --accent-primary: #3b82f6;      /* CHANGED */
+            --accent-secondary: #06b6d4;    /* CHANGED */
             --header-bg: rgba(253, 253, 255, 0.8);
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
             --backdrop-filter: blur(12px);
-            --gradient-start: #4f46e5;
-            --gradient-end: #a855f7;
-            --glow-color: rgba(79, 70, 229, 0.4);
+            --gradient-start: #3b82f6;      /* CHANGED */
+            --gradient-end: #06b6d4;        /* CHANGED */
+            --glow-color: rgba(59, 130, 246, 0.4); /* CHANGED */
         }
 
         [data-theme='dark'] {
@@ -36,12 +36,12 @@
             --text-primary: #f8fafc;
             --text-secondary: #a1a1aa;
             --border-color: #262626;
-            --accent-primary: #818cf8;
-            --accent-secondary: #c084fc;
+            --accent-primary: #60a5fa;      /* CHANGED */
+            --accent-secondary: #22d3ee;    /* CHANGED */
             --header-bg: rgba(0, 0, 0, 0.6);
-            --gradient-start: #818cf8;
-            --gradient-end: #f472b6;
-            --glow-color: rgba(129, 140, 248, 0.3);
+            --gradient-start: #60a5fa;      /* CHANGED */
+            --gradient-end: #22d3ee;        /* CHANGED - Removed pink */
+            --glow-color: rgba(96, 165, 250, 0.3); /* CHANGED */
         }
 
         body {
@@ -90,7 +90,7 @@
 
         /* Custom Cursor Glow */
         #cursor-glow {
-            display: none; /* Hidden by default (light mode) */
+            display: block; /* CHANGED: Was 'none' - Now always visible */
             position: fixed;
             width: 500px;
             height: 500px;
@@ -104,7 +104,7 @@
         }
 
         [data-theme='dark'] #cursor-glow {
-            display: block;
+            /* This rule is no longer needed as display is always block */
         }
 
         .header-scrolled {
@@ -363,7 +363,7 @@
         </section>
 
         <section id="contact" class="py-24 rounded-2xl text-center reveal-on-scroll card-style">
-             <div class="container mx-auto px-6 max-w-2xl">
+           <div class="container mx-auto px-6 max-w-2xl">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
                 <p class="text-md md:text-lg text-[var(--text-secondary)] mb-8">
                     I'm always looking for new opportunities to collaborate on exciting projects. Whether you have a question, a proposal, or just want to connect, my inbox is always open. I look forward to hearing from you.
@@ -380,11 +380,15 @@
         <div class="container mx-auto px-6 text-center text-sm text-[var(--text-secondary)]">
             <div class="flex justify-center space-x-6 mb-4">
                  <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                      <i data-lucide="linkedin" class="w-5 h-5"></i>
+                     <i data-lucide="linkedin" class="w-5 h-5"></i>
                  </a>
                  <a id="github-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
-                      <i data-lucide="github" class="w-5 h-5"></i>
+                     <i data-lucide="github" class="w-5 h-5"></i>
                  </a>
+            </div>
+            <!-- Profile Views Widget -->
+            <div class="flex justify-center my-4">
+                <img src="https://camo.githubusercontent.com/5b15f7f49956b7a0112050ed93b7d6094de98d08a21f1b86d57c2c7257dcf3a6/68747470733a2f2f6b6f6d617265762e636f6d2f67687076632f3f757365726e616d653d72616a61746b756d617231303131" alt="Profile Views">
             </div>
             <p>&copy; <span id="current-year"></span> <span id="footer-user-name"></span>. All Rights Reserved.</p>
         </div>
@@ -614,9 +618,12 @@
             elements.contactFooterLink.href = CONTACT_EMAIL_LINK;
 
             const userData = await fetchGitHubAPI(`users/${GITHUB_USERNAME}`);
+            // --- MODIFICATION: Use custom bio string ---
+            const customBio = "A passionate coder exploring the realms of technology!";
+            
             if (userData) {
                 populateUserInfo(userData);
-                typeSingleLine(elements.userBio, userData.bio || 'A passionate developer creating amazing things.');
+                typeSingleLine(elements.userBio, customBio); // Use custom bio
             } else {
                 populateUserInfo({
                     name: "Rajat Kumar",
@@ -624,8 +631,9 @@
                     avatar_url: `https://github.com/${GITHUB_USERNAME}.png`,
                     html_url: `https://github.com/${GITHUB_USERNAME}`
                 });
-                typeSingleLine(elements.userBio, 'A passionate developer creating amazing things.');
+                typeSingleLine(elements.userBio, customBio); // Use custom bio
             }
+            // --- END OF MODIFICATION ---
 
             // --- UPDATED: Fetch only projects from MY_PROJECTS list ---
             try {
