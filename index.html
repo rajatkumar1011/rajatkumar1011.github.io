@@ -342,16 +342,32 @@
         let scene, camera, renderer, particles, material;
         let animationId;
 
+        // Helper to create a soft glow texture programmatically
+        function createGlowTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 32;
+            canvas.height = 32;
+            const context = canvas.getContext('2d');
+            const gradient = context.createRadialGradient(16, 16, 0, 16, 16, 16);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            gradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.5)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, 32, 32);
+            const texture = new THREE.Texture(canvas);
+            texture.needsUpdate = true;
+            return texture;
+        }
+
         function initThreeJS() {
             const container = document.getElementById('canvas-container');
             container.innerHTML = ''; // Clear existing
             
             scene = new THREE.Scene();
-            // Fog color will be updated based on theme
             
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 30;
-            camera.position.y = 5;
+            camera.position.z = 25;
+            camera.position.y = 0;
 
             renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -360,32 +376,59 @@
 
             // Particles
             const geometry = new THREE.BufferGeometry();
-            const count = 2500;
+            const count = 2000;
             const positions = new Float32Array(count * 3);
             const colors = new Float32Array(count * 3);
+            const randoms = new Float32Array(count); // For individual movement
 
-            for(let i = 0; i < count * 3; i+=3) {
-                positions[i] = (Math.random() - 0.5) * 80;
-                positions[i+1] = (Math.random() - 0.5) * 40;
-                positions[i+2] = (Math.random() - 0.5) * 80;
+            for(let i = 0; i < count; i++) {
+                const i3 = i * 3;
+                // Sphere distribution for a galaxy/nebula look
+                const r = Math.random() * 40 + 10;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                
+                positions[i3] = r * Math.sin(phi) * Math.cos(theta);
+                positions[i3+1] = r * Math.sin(phi) * Math.sin(theta);
+                positions[i3+2] = r * Math.cos(phi);
 
-                colors[i] = 1; 
-                colors[i+1] = 1;
-                colors[i+2] = 1;
+                colors[i3] = 1; 
+                colors[i3+1] = 1;
+                colors[i3+2] = 1;
+
+                randoms[i] = Math.random();
             }
 
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
 
             material = new THREE.PointsMaterial({
-                size: 0.15,
-                vertexColors: true,
+                size: 0.3,
+                map: createGlowTexture(),
                 transparent: true,
-                opacity: 0.8
+                opacity: 0.8,
+                vertexColors: true,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending // Adds the "glow" look
             });
 
             particles = new THREE.Points(geometry, material);
             scene.add(particles);
+
+            // Mouse interaction vars
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - windowHalfX) * 0.05;
+                mouseY = (event.clientY - windowHalfY) * 0.05;
+            });
 
             // Animation
             const clock = new THREE.Clock();
@@ -393,15 +436,22 @@
                 animationId = requestAnimationFrame(animate);
                 const time = clock.getElapsedTime();
                 
-                particles.rotation.y = time * 0.05;
+                targetX = mouseX * 0.001;
+                targetY = mouseY * 0.001;
+
+                // Smooth rotation based on mouse
+                particles.rotation.y += 0.05 * (targetX - particles.rotation.y);
+                particles.rotation.x += 0.05 * (targetY - particles.rotation.x);
                 
-                // Gentle wave
+                // Constant slow rotation
+                particles.rotation.z += 0.001;
+
+                // Gentle pulse
                 const positions = particles.geometry.attributes.position.array;
-                for(let i = 0; i < count; i++) {
-                    const y = positions[i * 3 + 1];
-                    positions[i * 3 + 1] = y + Math.sin(time + positions[i*3] * 0.1) * 0.02;
-                }
-                particles.geometry.attributes.position.needsUpdate = true;
+                const randoms = particles.geometry.attributes.aRandom.array;
+                
+                // We won't loop through positions every frame for performance, 
+                // just rotate the whole group and rely on blending for the "alive" feel
                 
                 renderer.render(scene, camera);
             }
@@ -420,28 +470,25 @@
         function updateThreeJSColors() {
             const isDark = dom.html.classList.contains('dark');
             
-            // Background is handled by CSS body color, ThreeJS is transparent on top
-            // We just need to change particle colors and fog
-            
             if (isDark) {
-                scene.fog = new THREE.FogExp2(0x030014, 0.02); // Deep space fog
-                material.opacity = 0.8;
-                // Tint particles bluish
+                scene.fog = new THREE.FogExp2(0x030014, 0.02);
+                material.opacity = 0.9;
                 const colors = particles.geometry.attributes.color.array;
                 for(let i=0; i < colors.length; i+=3) {
-                    colors[i] = 0.4; // R
-                    colors[i+1] = 0.7; // G
+                    // Modern Dark Theme: Electric Blue/Cyan/Purple Mix
+                    colors[i] = 0.4 + Math.random() * 0.2; // R
+                    colors[i+1] = 0.5 + Math.random() * 0.3; // G
                     colors[i+2] = 1.0; // B
                 }
             } else {
-                scene.fog = new THREE.FogExp2(0xfdfdff, 0.02); // White mist
-                material.opacity = 0.6;
-                // Tint particles dark gray/blue
+                scene.fog = new THREE.FogExp2(0xfdfdff, 0.025);
+                material.opacity = 0.8;
                 const colors = particles.geometry.attributes.color.array;
                 for(let i=0; i < colors.length; i+=3) {
+                    // Modern Light Theme: Deep Blue/Indigo
                     colors[i] = 0.2; // R
-                    colors[i+1] = 0.3; // G
-                    colors[i+2] = 0.5; // B
+                    colors[i+1] = 0.4 + Math.random() * 0.2; // G
+                    colors[i+2] = 0.9; // B
                 }
             }
             particles.geometry.attributes.color.needsUpdate = true;
