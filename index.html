@@ -44,6 +44,10 @@
             --glow-color: rgba(129, 140, 248, 0.38);
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-primary);
@@ -51,66 +55,76 @@
             transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-x: hidden;
             position: relative;
+            line-height: 1.5;
         }
 
-        /* Enhanced multi-layer background glows for more vibe */
-        body::before, body::after, body::after ~ .glow-extra {
+        /* Background glows - toned down for stability */
+        body::before,
+        body::after {
             content: '';
             position: fixed;
-            width: 620px;
-            height: 620px;
+            width: 580px;
+            height: 580px;
             border-radius: 50%;
             filter: blur(160px);
             z-index: -1;
-            opacity: 0.12;
+            opacity: 0.09;
             pointer-events: none;
         }
 
-        [data-theme='dark'] body::before, [data-theme='dark'] body::after, [data-theme='dark'] body::after ~ .glow-extra {
-            opacity: 0.09;
+        [data-theme='dark'] body::before,
+        [data-theme='dark'] body::after {
+            opacity: 0.07;
         }
 
         body::before {
-            background: radial-gradient(circle, var(--accent-primary), transparent 65%);
-            top: -22%;
-            left: -22%;
+            background: radial-gradient(circle, var(--accent-primary), transparent 70%);
+            top: -20%;
+            left: -20%;
         }
 
         body::after {
-            background: radial-gradient(circle, var(--accent-secondary), transparent 65%);
-            bottom: -22%;
-            right: -22%;
-            animation: move-glow 24s infinite alternate ease-in-out;
-        }
-
-        .glow-extra {
-            background: radial-gradient(circle, #a855f7, transparent 70%);
-            top: 35%;
-            left: 40%;
-            width: 420px;
-            height: 420px;
-            animation: move-glow-extra 18s infinite alternate ease-in-out;
-            opacity: 0.07;
+            background: radial-gradient(circle, var(--accent-secondary), transparent 70%);
+            bottom: -20%;
+            right: -20%;
+            animation: move-glow 26s infinite alternate ease-in-out;
         }
 
         @keyframes move-glow {
             from { transform: translate(0, 0) rotate(0deg); }
-            to { transform: translate(120px, 80px) rotate(30deg); }
+            to { transform: translate(90px, 60px) rotate(25deg); }
+        }
+
+        /* Extra glow layer */
+        .glow-extra {
+            content: '';
+            position: fixed;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #a855f7, transparent 70%);
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.06;
+            top: 38%;
+            left: 42%;
+            animation: move-glow-extra 20s infinite alternate ease-in-out;
+            pointer-events: none;
         }
 
         @keyframes move-glow-extra {
             from { transform: translate(0, 0) rotate(0deg); }
-            to { transform: translate(-80px, 60px) rotate(-25deg); }
+            to { transform: translate(-60px, 50px) rotate(-20deg); }
         }
 
-        /* Cursor glow - more vibrant in dark mode */
+        /* Cursor glow */
         #cursor-glow {
             display: none;
             position: fixed;
-            width: 520px;
-            height: 520px;
+            width: 480px;
+            height: 480px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-color) 0%, transparent 55%);
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 58%);
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: -1;
@@ -134,10 +148,9 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Glassmorphic glossy cards with deeper depth */
         .card-style {
-            background: color-mix(in srgb, var(--bg-secondary) 85%, transparent);
-            border: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent);
+            background: color-mix(in srgb, var(--bg-secondary) 88%, transparent);
+            border: 1px solid color-mix(in srgb, var(--border-color) 65%, transparent);
             backdrop-filter: var(--backdrop-filter);
             -webkit-backdrop-filter: var(--backdrop-filter);
             box-shadow: var(--shadow-sm);
@@ -147,7 +160,7 @@
         }
         
         .card-style:hover {
-            transform: translateY(-10px) scale(1.03);
+            transform: translateY(-6px);
             box-shadow: var(--shadow-lg);
         }
         
@@ -158,7 +171,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(900px circle at var(--mouse-x) var(--mouse-y), color-mix(in srgb, var(--glow-color) 55%, transparent), transparent 58%);
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), color-mix(in srgb, var(--glow-color) 50%, transparent), transparent 60%);
             opacity: 0;
             transition: opacity 0.5s ease;
             z-index: 0;
@@ -173,7 +186,6 @@
             z-index: 1;
         }
 
-        /* Premium glossy button with stronger shimmer */
         .sleek-btn {
             position: relative;
             overflow: hidden;
@@ -183,39 +195,38 @@
             font-weight: 600;
             border-radius: 9999px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 12px 25px -6px rgb(79 70 229 / 0.45);
+            box-shadow: 0 10px 20px -5px rgb(79 70 229 / 0.4);
         }
         
         .sleek-btn:hover {
-            transform: translateY(-4px) scale(1.05);
+            transform: translateY(-3px) scale(1.03);
             background-position: right center;
-            box-shadow: 0 22px 35px -8px rgb(79 70 229 / 0.55);
+            box-shadow: 0 18px 30px -8px rgb(79 70 229 / 0.5);
         }
         
         .sleek-btn::after {
             content: '';
             position: absolute;
-            top: -60%;
-            left: -180%;
-            width: 50%;
+            top: -50%;
+            left: -150%;
+            width: 40%;
             height: 300%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
             transform: skewX(-25deg);
-            animation: shimmer 3.5s linear infinite;
+            animation: shimmer 4s linear infinite;
         }
-
+        
         @keyframes shimmer {
-            100% { transform: translateX(450%); }
+            100% { transform: translateX(400%); }
         }
 
         #user-name {
             background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 12px rgb(79 70 229 / 0.4));
         }
 
-        /* Circular avatar with enhanced glowing ring */
+        /* Circular avatar with stable glowing ring */
         .avatar-ring {
             position: relative;
         }
@@ -223,12 +234,11 @@
         .avatar-ring::before {
             content: '';
             position: absolute;
-            inset: -8px;
+            inset: -6px;
             border-radius: 9999px;
-            background: conic-gradient(from var(--angle), transparent 25%, var(--gradient-start), var(--gradient-end), transparent 75%);
-            animation: spin 3.5s linear infinite;
+            background: conic-gradient(from var(--angle), transparent 30%, var(--gradient-start), var(--gradient-end), transparent 70%);
+            animation: spin 4s linear infinite;
             z-index: 0;
-            filter: blur(4px) brightness(1.2);
         }
 
         @property --angle {
@@ -242,17 +252,15 @@
         }
 
         #user-avatar {
-            box-shadow: 
-                0 0 0 6px var(--bg-secondary),
-                0 0 0 10px rgb(79 70 229 / 0.15);
+            box-shadow: 0 0 0 6px var(--bg-secondary);
             position: relative;
             z-index: 1;
         }
 
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(30px);
+            transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
         .reveal-on-scroll.is-visible {
@@ -260,7 +268,6 @@
             transform: translateY(0);
         }
 
-        /* Extra polish */
         .container {
             max-width: 1280px;
         }
@@ -269,23 +276,22 @@
 <body class="antialiased">
     
     <div id="cursor-glow"></div>
-    <!-- Extra glow layer for more vibe -->
     <div class="glow-extra"></div>
 
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto relative flex justify-between items-center px-8 py-6">
+        <nav class="container mx-auto relative flex justify-between items-center px-6 py-5 md:px-8">
             <div>
-                <a href="." class="text-3xl font-bold tracking-[-0.05em] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">RK</a>
+                <a href="." class="text-2xl font-semibold tracking-[-0.04em] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">RK</a>
             </div>
             
-            <div class="hidden md:flex absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] items-center justify-center space-x-10 text-base font-medium">
+            <div class="hidden md:flex absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] items-center justify-center space-x-8 text-sm font-medium">
                 <a href="#hero" class="transition-colors hover:text-[var(--accent-secondary)]">About</a>
                 <a href="#projects" class="transition-colors hover:text-[var(--accent-secondary)]">Work</a>
                 <a href="#contact" class="transition-colors hover:text-[var(--accent-secondary)]">Contact</a>
             </div>
 
-            <div class="flex items-center gap-x-4">
+            <div class="flex items-center gap-x-3">
                 <button class="theme-toggle" aria-label="Toggle theme">
                     <div class="theme-switch">
                        <div class="theme-switch-thumb">
@@ -305,11 +311,11 @@
         <div class="flex justify-end p-6">
             <button id="close-mobile-menu-button"><i data-lucide="x" class="w-8 h-8"></i></button>
         </div>
-        <div class="flex flex-col items-center justify-center space-y-12 h-full text-3xl font-medium">
+        <div class="flex flex-col items-center justify-center space-y-10 h-full text-2xl font-medium">
             <a href="#hero" class="mobile-menu-link">About</a>
             <a href="#projects" class="mobile-menu-link">Work</a>
             <a href="#contact" class="mobile-menu-link">Contact</a>
-            <div class="pt-10">
+            <div class="pt-8">
                <button class="theme-toggle" aria-label="Toggle theme">
                      <div class="theme-switch">
                          <div class="theme-switch-thumb">
@@ -322,60 +328,62 @@
         </div>
     </div>
 
-    <main class="container mx-auto px-8 pt-28 md:pt-40">
+    <main class="container mx-auto px-6 md:px-8 pt-24 md:pt-32">
 
-        <!-- Hero - now with more energy and circular avatar -->
+        <!-- Hero -->
         <section id="hero" class="text-center max-w-4xl mx-auto">
-            <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full mx-auto mb-10 avatar-ring">
+            <div class="relative w-36 h-36 md:w-40 md:h-40 rounded-full mx-auto mb-8 avatar-ring">
                 <img id="user-avatar" src="https://placehold.co/144x144/e5e7eb/4b5563?text=Avatar" alt="User Avatar" class="w-full h-full rounded-full object-cover">
             </div>
-            <h1 class="text-6xl md:text-7xl font-black tracking-[-0.04em] leading-none mb-6 reveal-on-scroll">
+            <h1 class="text-5xl md:text-6xl font-black tracking-[-0.03em] leading-none mb-5 reveal-on-scroll">
                 Hi, I'm <span id="user-name"></span>
             </h1>
-            <p id="user-bio" class="text-2xl md:text-3xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-12 reveal-on-scroll"></p>
-            <div class="reveal-on-scroll flex justify-center">
-                <a id="explore-work-btn" href="#projects" class="sleek-btn py-4 px-10 text-xl inline-flex items-center gap-3">
+            <p id="user-bio" class="text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 reveal-on-scroll"></p>
+            <div class="reveal-on-scroll">
+                <a id="explore-work-btn" href="#projects" class="sleek-btn py-4 px-8 text-lg inline-flex items-center gap-3">
                     Explore My Work
-                    <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </a>
             </div>
         </section>
 
-        <section id="projects" class="pt-28 pb-20">
-            <div class="max-w-2xl mx-auto text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-semibold tracking-tighter reveal-on-scroll">Selected Work</h2>
-                <p id="projects-subtitle" class="text-xl text-[var(--text-secondary)] mt-4 reveal-on-scroll"></p>
+        <!-- Projects -->
+        <section id="projects" class="pt-20 pb-16">
+            <div class="max-w-2xl mx-auto text-center mb-12">
+                <h2 class="text-4xl font-semibold tracking-tight reveal-on-scroll">Selected Work</h2>
+                <p id="projects-subtitle" class="text-lg text-[var(--text-secondary)] mt-3 reveal-on-scroll"></p>
             </div>
-            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div id="loader" class="col-span-full flex justify-center items-center h-64">
+            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div id="loader" class="col-span-full flex justify-center items-center h-52">
                     <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--accent-primary)]"></div>
                 </div>
             </div>
-            <div class="mt-16 text-center">
+            <div class="mt-12 text-center">
                 <a href="https://github.com/rajatkumar1011" target="_blank" rel="noopener noreferrer" 
-                   class="inline-flex items-center gap-x-3 text-base font-medium text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors">
+                   class="inline-flex items-center gap-x-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent-secondary)] transition-colors">
                     VIEW ALL ON GITHUB
-                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
                 </a>
             </div>
             <div id="error-message" class="hidden col-span-full text-center text-red-500 p-8 bg-red-50 dark:bg-red-900/20 rounded-3xl mt-8"></div>
         </section>
 
-        <section id="contact" class="py-20 rounded-3xl card-style text-center">
+        <!-- Contact -->
+        <section id="contact" class="py-16 rounded-3xl card-style text-center">
              <div class="max-w-2xl mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-semibold mb-4">Let's build something great together</h2>
-                <p class="text-xl text-[var(--text-secondary)] mb-10">Always open to exciting opportunities, collaborations, or just a good conversation.</p>
-                <a id="contact-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn py-4 px-12 text-xl inline-flex items-center gap-3">
+                <h2 class="text-4xl font-semibold mb-4">Let's build something great</h2>
+                <p class="text-lg text-[var(--text-secondary)] mb-8">I'm always open to new opportunities, collaborations, or just a friendly chat.</p>
+                <a id="contact-footer-link" href="#" target="_blank" rel="noopener noreferrer" class="sleek-btn py-4 px-10 text-lg inline-flex items-center gap-3">
                     Get In Touch
-                    <i data-lucide="send" class="w-6 h-6"></i>
+                    <i data-lucide="send" class="w-5 h-5"></i>
                 </a>
             </div>
         </section>
 
     </main>
 
-    <footer id="page-footer" class="mt-24 pb-12 border-t border-[var(--border-color)]">
-        <div class="container mx-auto px-8 text-center text-sm text-[var(--text-secondary)]">
+    <footer id="page-footer" class="mt-20 pb-10 border-t border-[var(--border-color)]">
+        <div class="container mx-auto px-6 md:px-8 text-center text-sm text-[var(--text-secondary)]">
             <div class="flex justify-center space-x-8 mb-6">
                  <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-secondary)] transition-colors">
                        <i data-lucide="linkedin" class="w-5 h-5"></i>
@@ -452,16 +460,16 @@
 
             repos.forEach((repo, index) => {
                 const card = document.createElement('div');
-                card.className = 'card-style p-7 rounded-3xl flex flex-col h-full';
-                card.style.transitionDelay = `${index * 70}ms`;
+                card.className = 'card-style p-6 rounded-3xl flex flex-col h-full';
+                card.style.transitionDelay = `${index * 60}ms`;
 
                 const language = repo.language ? `<span class="text-xs font-medium px-3 py-1 rounded-2xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] text-[var(--accent-primary)]">${repo.language}</span>` : '';
                 const deploymentUrl = repo.homepage || `https://rajatkumar1.me/${repo.name}`;
 
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-semibold">${repo.name}</h3>
-                        <div class="flex items-center gap-x-4">
+                        <h3 class="text-lg font-semibold">${repo.name}</h3>
+                        <div class="flex items-center gap-x-3">
                             <a href="${deploymentUrl}" target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--accent-secondary)]">
                                 <i data-lucide="external-link" class="w-5 h-5"></i>
                             </a>
@@ -503,7 +511,7 @@
             function typeChar() {
                 if (i < text.length) {
                     element.textContent += text.charAt(i++);
-                    setTimeout(typeChar, 32);
+                    setTimeout(typeChar, 35);
                 } else {
                     element.classList.remove('typing-cursor');
                 }
@@ -556,12 +564,12 @@
             
             document.querySelectorAll('a, button, .theme-switch, .card-style').forEach(el => {
                 el.addEventListener('mouseenter', () => {
-                    elements.cursorGlow.style.width = '640px';
-                    elements.cursorGlow.style.height = '640px';
+                    elements.cursorGlow.style.width = '580px';
+                    elements.cursorGlow.style.height = '580px';
                 });
                 el.addEventListener('mouseleave', () => {
-                    elements.cursorGlow.style.width = '520px';
-                    elements.cursorGlow.style.height = '520px';
+                    elements.cursorGlow.style.width = '480px';
+                    elements.cursorGlow.style.height = '480px';
                 });
             });
         }
