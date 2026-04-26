@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rajat Kumar — Portfolio</title>
+    <title>Portfolio</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #07080a;
@@ -47,7 +47,7 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'DM Sans', system-ui, sans-serif;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
             background: var(--bg);
             color: var(--fg);
             overflow-x: hidden;
@@ -127,7 +127,7 @@
         }
 
         .logo {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
             font-size: 1.3rem;
             letter-spacing: -0.02em;
@@ -165,12 +165,12 @@
         }
 
         .nav-links a {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.78rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
             text-decoration: none;
             color: var(--fg2);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing: 0.01em;
             transition: color 0.2s ease;
             position: relative;
         }
@@ -191,7 +191,7 @@
 
         /* ── THEME TOGGLE ── */
         .theme-btn {
-            width: 40px; height: 40px;
+            width: 44px; height: 44px;
             border-radius: 50%;
             border: 1px solid var(--border);
             background: var(--bg2);
@@ -199,7 +199,7 @@
             display: flex; align-items: center; justify-content: center;
             color: var(--fg2);
             transition: all 0.2s ease;
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
         .theme-btn:hover { background: var(--bg3); color: var(--fg); border-color: var(--accent); }
 
@@ -238,7 +238,7 @@
         }
         .mobile-menu.open { display: flex; }
         .mobile-menu a {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--fg);
@@ -262,6 +262,8 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: center;
             padding: 5rem 0 4rem;
         }
 
@@ -269,15 +271,15 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
             color: var(--accent);
             background: rgba(184,255,87,0.07);
             border: 1px solid rgba(184,255,87,0.25);
             border-radius: 100px;
-            padding: 0.4rem 1rem;
+            padding: 0.45rem 1.1rem;
             margin-bottom: 2rem;
             width: fit-content;
         }
@@ -296,7 +298,7 @@
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .hero-name {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
             font-size: clamp(3.5rem, 9vw, 8rem);
             line-height: 0.95;
@@ -320,25 +322,28 @@
         .hero-role-line {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 1rem;
             margin: 1.5rem 0 2.5rem;
             flex-wrap: wrap;
         }
 
         .role-label {
-            font-family: 'DM Mono', monospace;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: clamp(0.9rem, 2vw, 1.15rem);
             color: var(--fg2);
             font-style: italic;
+            font-weight: 300;
         }
 
         .role-cycle {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: clamp(0.95rem, 2vw, 1.2rem);
             font-weight: 700;
             color: var(--accent);
             position: relative;
             min-width: 220px;
+            text-align: left;
         }
 
         .role-text { display: inline-block; }
@@ -348,9 +353,9 @@
         .hero-bio {
             max-width: 520px;
             color: var(--fg2);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             line-height: 1.75;
-            margin-bottom: 3rem;
+            margin: 0 auto 3rem;
             animation: fade-up 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
@@ -362,6 +367,7 @@
         .hero-actions {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
             animation: fade-up 0.8s 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -374,11 +380,11 @@
             gap: 0.5rem;
             background: var(--accent);
             color: #07080a;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 0.02em;
-            padding: 0.85rem 1.75rem;
+            font-size: 1rem;
+            letter-spacing: 0.01em;
+            padding: 0.9rem 1.85rem;
             border-radius: 100px;
             text-decoration: none;
             transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -405,10 +411,10 @@
             gap: 0.5rem;
             background: transparent;
             color: var(--fg);
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 600;
-            font-size: 0.9rem;
-            padding: 0.85rem 1.75rem;
+            font-size: 1rem;
+            padding: 0.9rem 1.85rem;
             border-radius: 100px;
             text-decoration: none;
             border: 1px solid var(--border);
@@ -427,10 +433,11 @@
         }
 
         .marquee-label {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.7rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             color: var(--fg3);
             text-align: center;
             margin-bottom: 1.5rem;
@@ -452,12 +459,13 @@
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 0.5rem 1.4rem;
+            padding: 0.55rem 1.4rem;
             margin: 0 0.4rem;
             border: 1px solid var(--border);
             border-radius: 100px;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.82rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.93rem;
+            font-weight: 500;
             color: var(--fg2);
             background: var(--bg2);
             white-space: nowrap;
@@ -489,7 +497,7 @@
         }
 
         .section-title {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
             font-size: clamp(2rem, 4vw, 3rem);
             letter-spacing: -0.03em;
@@ -497,10 +505,11 @@
         }
 
         .section-num {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.78rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--accent);
-            letter-spacing: 0.06em;
+            letter-spacing: 0.04em;
         }
 
         .section-line {
@@ -570,10 +579,11 @@
         }
 
         .card-index {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.7rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
             color: var(--fg3);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
         }
 
         .card-links {
@@ -596,7 +606,7 @@
         [data-theme="light"] .card-link:hover { background: rgba(61,138,0,0.07); }
 
         .card-name {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
             font-size: 1.15rem;
             letter-spacing: -0.02em;
@@ -606,7 +616,7 @@
         }
 
         .card-desc {
-            font-size: 0.9rem;
+            font-size: 0.93rem;
             color: var(--fg2);
             line-height: 1.65;
             flex: 1;
@@ -628,24 +638,26 @@
         .card-stats {
             display: flex;
             gap: 1rem;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.72rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
             color: var(--fg3);
         }
 
         .card-stat {
-            display: flex; align-items: center; gap: 0.3rem;
+            display: flex; align-items: center; gap: 0.35rem;
         }
 
         .card-lang {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.7rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
             color: var(--accent);
             background: rgba(184,255,87,0.08);
             border: 1px solid rgba(184,255,87,0.2);
-            padding: 0.25rem 0.7rem;
+            padding: 0.28rem 0.75rem;
             border-radius: 100px;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.02em;
         }
         [data-theme="light"] .card-lang {
             background: rgba(61,138,0,0.08);
@@ -716,16 +728,17 @@
         }
 
         .contact-eyebrow {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.72rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             color: var(--accent);
             margin-bottom: 1.25rem;
         }
 
         .contact-title {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
             font-size: clamp(2.2rem, 5vw, 4rem);
             letter-spacing: -0.04em;
@@ -735,6 +748,7 @@
 
         .contact-sub {
             color: var(--fg2);
+            font-size: 1.05rem;
             max-width: 420px;
             margin-bottom: 2.5rem;
         }
@@ -753,10 +767,11 @@
         }
 
         .footer-copy {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.75rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 400;
             color: var(--fg3);
-            letter-spacing: 0.04em;
+            letter-spacing: 0.01em;
         }
 
         .footer-links {
@@ -791,16 +806,16 @@
         /* ── AVATAR ── */
         .avatar-wrap {
             position: relative;
-            width: 96px; height: 96px;
+            width: 160px; height: 160px;
             margin-bottom: 2rem;
             animation: fade-up 0.8s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
         .avatar-img {
-            width: 96px; height: 96px;
+            width: 160px; height: 160px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--bg2);
+            border: 4px solid var(--bg2);
             position: relative; z-index: 1;
         }
 
@@ -821,13 +836,14 @@
             gap: 3rem;
             margin-top: 3rem;
             flex-wrap: wrap;
+            justify-content: center;
             animation: fade-up 0.8s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
         .stat-item { display: flex; flex-direction: column; gap: 0.2rem; }
 
         .stat-num {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
             font-size: 2.2rem;
             letter-spacing: -0.04em;
@@ -836,10 +852,11 @@
         }
 
         .stat-label {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
+            font-weight: 500;
             color: var(--fg3);
-            font-family: 'DM Mono', monospace;
-            letter-spacing: 0.04em;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: 0.01em;
         }
 
         /* ── RESPONSIVE ── */
@@ -894,7 +911,7 @@
     <section id="hero">
         <div class="avatar-wrap">
             <div class="avatar-ring-outer"></div>
-            <img class="avatar-img" id="avatar" src="https://placehold.co/96x96/181b22/b8ff57?text=RK" alt="Rajat Kumar">
+            <img class="avatar-img" id="avatar" src="https://placehold.co/160x160/181b22/b8ff57?text=RK" alt="Rajat Kumar">
         </div>
 
         <div class="hero-badge">
@@ -904,7 +921,7 @@
 
         <h1 class="hero-name">
             <span class="name-line"><span class="name-inner" id="heroFirstName">Rajat</span></span>
-            <span class="name-line"><span class="name-inner" id="heroLastName">Kumar.</span></span>
+            <span class="name-line"><span class="name-inner" id="heroLastName">Kumar</span></span>
         </h1>
 
         <div class="hero-role-line">
@@ -990,7 +1007,7 @@
 
 <!-- FOOTER -->
 <footer>
-    <p class="footer-copy" id="footerCopy">© 2025 Rajat Kumar. All rights reserved.</p>
+    <p class="footer-copy" id="footerCopy">© 2026 Rajat Kumar. All rights reserved.</p>
     <div class="footer-links">
         <a href="https://www.linkedin.com/in/rajatkumar7/" target="_blank" rel="noopener" class="footer-link" title="LinkedIn">
             <svg class="ico" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
